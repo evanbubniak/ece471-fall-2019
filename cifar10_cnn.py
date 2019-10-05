@@ -10,6 +10,7 @@ from tensorflow.keras.datasets import cifar10
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Layer, BatchNormalization, AveragePooling2D, Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
 from tensorflow.keras.regularizers import l2
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 RANDOM_SEED = 31415
 BATCH_SIZE = 100
@@ -41,9 +42,10 @@ class Model:
               optimizer=keras.optimizers.Adam(),
               metrics=['accuracy', 'top_k_categorical_accuracy'])
     
-    def train(self, X_train, y_train, X_val, y_val):
-        self.model_log = self.sequential_model.fit(X_train, y_train,
-            batch_size=BATCH_SIZE,
+    def train(self, datagen, X_train, y_train, X_val, y_val):
+        self.model_log = self.sequential_model.fit_generator(
+            datagen.flow(X_train, y_train, batch_size = BATCH_SIZE),
+            steps_per_epoch = X_train.shape[0] // BATCH_SIZE,           
             epochs=NUM_EPOCH,
             verbose=1,
             validation_data=(X_val, y_val)
@@ -72,8 +74,14 @@ if __name__ == "__main__":
     y_training_set, y_test = format_labels(y_training_set, num_labels), format_labels(y_test, num_labels), 
     X_train, X_val, y_train, y_val = train_test_split(X_training_set, y_training_set, test_size=1/6, random_state=RANDOM_SEED)
     
-    
+    datagen = ImageDataGenerator(
+        rotation_range=15,
+        width_shift_range=0.1,
+        height_shift_range=0.1,
+        horizontal_flip=True,
+    )
+    datagen.fit(X_train)
 
     model = Model(img_dim, num_labels)
-    model_log = model.train(X_train, y_train, X_val, y_val)
+    model_log = model.train(datagen, X_train, y_train, X_val, y_val)
     model.test(X_test, y_test)
