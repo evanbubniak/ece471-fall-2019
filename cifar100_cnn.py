@@ -17,7 +17,6 @@ BATCH_SIZE = 100
 NUM_EPOCH = 50
 DROPOUT_RATIO = 0.1
 L2_PENALTY = 0.001
-WEIGHT_DECAY = 1e-4
 
 tf.random.set_seed(RANDOM_SEED)
 
@@ -25,13 +24,15 @@ class Model:
     def __init__(self, img_dim, num_labels):
 
         self.sequential_model = Sequential([
-            Conv2D(img_dim, (3,3), activation="relu", input_shape = (img_dim, img_dim, 3)),
+            Conv2D(img_dim, (3,3), activation="elu", input_shape = (img_dim, img_dim, 3), kernel_regularizer = keras.regularizers.l2(L2_PENALTY)),
+            BatchNormalization(),
+            Conv2D(img_dim, (3,3), activation="elu", kernel_regularizer = keras.regularizers.l2(L2_PENALTY)),
             MaxPooling2D(pool_size = (2,2)),
             Dropout(DROPOUT_RATIO),
-            Conv2D(img_dim*2, (3,3), activation="relu"),
+            Conv2D(img_dim*2, (3,3), activation="elu", kernel_regularizer = keras.regularizers.l2(L2_PENALTY)),
             MaxPooling2D(pool_size = (2,2)),
             Dropout(DROPOUT_RATIO),
-            Conv2D(img_dim*4, (3,3), activation="relu"),
+            Conv2D(img_dim*4, (3,3), activation="elu", kernel_regularizer = keras.regularizers.l2(L2_PENALTY)),
             MaxPooling2D(pool_size = (2,2)),
             Dropout(DROPOUT_RATIO),
             Flatten(),
