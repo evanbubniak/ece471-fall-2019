@@ -80,11 +80,14 @@ class ResNetBlock(Layer):
         out = Activation("relu")(out)
         return out
 
-class Model:
+class Model(keras.Model):
     def __init__(self, img_shape, num_labels, width=2,depth=16, dropout_ratio = 0.3):
-
+        super(Model, self).__init__()
         base_filter_numbers = img_shape[0]
         depth_per_resnet_block = (depth - 4)//6
+
+        
+        self.classifier = Dense(num_labels, activation = "softmax", kernel_regularizer = keras.regularizers.l2(L2_PENALTY))
 
         self.sequential_model = Sequential([
             Conv2D(base_filter_numbers, (3,3), activation="relu", input_shape = img_shape,
@@ -97,7 +100,7 @@ class Model:
             ResNetBlock(base_filter_numbers*4, width, depth_per_resnet_block, dropout_ratio),
             AveragePooling2D((8,8)),
             Flatten(),
-            Dense(num_labels, activation = "softmax", kernel_regularizer = keras.regularizers.l2(L2_PENALTY))
+            
             ])
         
         self.sequential_model.compile(loss=keras.losses.categorical_crossentropy,
