@@ -58,7 +58,7 @@ print("Finished compiling")
 #model.load_weights("weights/WRN-16-8 Weights.h5")
 print("Model loaded.")
 
-model.fit_generator(generator.flow(trainX, trainY, BATCH_SIZE=BATCH_SIZE), steps_per_epoch=len(trainX) // BATCH_SIZE, epochs=NUM_EPOCHS,
+model.fit_generator(generator.flow(trainX, trainY, batch_size=BATCH_SIZE), steps_per_epoch=len(trainX) // BATCH_SIZE, epochs=NUM_EPOCHS,
                    callbacks=[callbacks.ModelCheckpoint("WRN-16-8 Weights.h5",
                                                         monitor="val_acc",
                                                         save_best_only=True,
