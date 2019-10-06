@@ -68,29 +68,30 @@ class ResNetBlock(Layer):
         for i in range(self.depth):
             out = BatchNormalization()(out)
             out = Activation("relu")(out)
-            out = Conv2D(filters=self.filters*self.width, kernel_size=[3, 3], strides=[1, 1], padding="same", kernel_regularizer = keras.regularizers.l2(L2_PENALTY))(out)
-            if self.dropout_ratio and i == 0:
+            out = Conv2D(filters=self.filters*self.width, kernel_size=[3, 3], strides = [1,1], padding="same",
+                kernel_regularizer = keras.regularizers.l2(L2_PENALTY), use_bias = False)(out)
+            if self.dropout_ratio and i % 2 == 0:
                 out = Dropout(self.dropout_ratio)(out)
-
+        
         out = keras.layers.add([residual,out])
         out = BatchNormalization()(out)
         out = Activation("relu")(out)
         return out
 
 class Model:
-    def __init__(self, img_shape, num_labels, width=1,depth=1, dropout_ratio = 0.3):
+    def __init__(self, img_shape, num_labels, width=2,depth=16, dropout_ratio = 0.3):
 
         base_filter_numbers = img_shape[0]
+        depth_per_resnet_block = (depth - 4)//6
 
         self.sequential_model = Sequential([
             Conv2D(base_filter_numbers, (3,3), activation="relu", input_shape = img_shape),
             BatchNormalization(),
             Activation('relu'),
-            ConvExpansion(base_filter_numbers//2, width),
-            ResNetBlock(base_filter_numbers, width, depth, dropout_ratio),
-            ConvExpansion(base_filter_numbers//2, width),
-            ResNetBlock(base_filter_numbers*2, width, depth, dropout_ratio),
-            ConvExpansion(base_filter_numbers, width),
+            ConvExpansion(base_filter_numbers*2, width),
+            ResNetBlock(base_filter_numbers*2, width, depth_per_resnet_block, dropout_ratio),
+            ConvExpansion(base_filter_numbers*4, width),
+            ResNetBlock(base_filter_numbers*4, width, depth_per_resnet_block, dropout_ratio),
             AveragePooling2D((8,8)),
             Flatten(),
             Dense(num_labels, activation = "softmax", kernel_regularizer = keras.regularizers.l2(L2_PENALTY))
