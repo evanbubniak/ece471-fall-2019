@@ -138,6 +138,7 @@ if __name__ == "__main__":
         width_shift_range=0.1,
         height_shift_range=0.1,
         horizontal_flip=True,
+        zca_whitening=True
     )
     datagen.fit(X_train)
 
