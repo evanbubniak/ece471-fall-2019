@@ -1,16 +1,27 @@
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+import sys
 
 import numpy as np
 from sklearn.model_selection import train_test_split
 
 import tensorflow as tf
 import tensorflow.keras as keras
-from tensorflow.keras.datasets import cifar10
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Layer, BatchNormalization, AveragePooling2D, Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import ModelCheckpoint
+
+if len(sys.argv) > 1:
+    dataset = sys.argv[1]
+else:
+    dataset = "cifar10"
+
+if dataset == "cifar100":
+    print("cifar100: \n")
+    from tensorflow.keras.datasets import cifar100 as cifar
+else:
+    print("cifar10: \n")
+    from tensorflow.keras.datasets import cifar10 as cifar
 
 RANDOM_SEED = 31415
 BATCH_SIZE = 100
@@ -63,25 +74,26 @@ def format_labels(label_set, num_labels):
     return keras.utils.to_categorical(label_set, num_labels)
 
 if __name__ == "__main__":
-    data = cifar10.load_data()
+    data = cifar.load_data()
     (X_training_set, y_training_set), (X_test, y_test) = data
     X_training_set = normalize_images(X_training_set)
     X_test = normalize_images(X_test)
 
-    img_dim = X_training_set.shape[1]
+    img_shape = X_training_set.shape[1:]
     num_labels = np.amax(y_training_set[:]) + 1
 
     y_training_set, y_test = format_labels(y_training_set, num_labels), format_labels(y_test, num_labels), 
     X_train, X_val, y_train, y_val = train_test_split(X_training_set, y_training_set, test_size=1/6, random_state=RANDOM_SEED)
     
     datagen = ImageDataGenerator(
-        rotation_range=15,
-        width_shift_range=0.1,
-        height_shift_range=0.1,
+        rotation_range=10,
+        width_shift_range=5./32,
+        height_shift_range=5./32,
         horizontal_flip=True,
+        zca_whitening=True
     )
     datagen.fit(X_train)
 
-    model = Model(img_dim, num_labels)
+    model = Model(img_shape, num_labels)
     model_log = model.train(datagen, X_train, y_train, X_val, y_val)
     model.test(X_test, y_test)
