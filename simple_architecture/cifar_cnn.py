@@ -35,14 +35,10 @@ tf.random.set_seed(RANDOM_SEED)
 class Model:
     def __init__(self, img_dim, num_labels):
 
+        base_filter_numbers = img_shape[0]
+
         self.sequential_model = Sequential([
-            Conv2D(img_dim, (3,3), activation="relu", input_shape = (img_dim, img_dim, 3)),
-            MaxPooling2D(pool_size = (2,2)),
-            Dropout(DROPOUT_RATIO),
-            Conv2D(img_dim*2, (3,3), activation="relu"),
-            MaxPooling2D(pool_size = (2,2)),
-            Dropout(DROPOUT_RATIO),
-            Conv2D(img_dim*4, (3,3), activation="relu"),
+            Conv2D(base_filter_numbers, (3,3), activation="relu", input_shape = img_shape),
             MaxPooling2D(pool_size = (2,2)),
             Dropout(DROPOUT_RATIO),
             Flatten(),
