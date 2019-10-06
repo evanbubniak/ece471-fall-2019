@@ -9,6 +9,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Layer, BatchNormalization, AveragePooling2D, Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import ModelCheckpoint
 
 if len(sys.argv) > 1:
     dataset = sys.argv[1]
@@ -25,8 +26,7 @@ else:
 RANDOM_SEED = 31415
 BATCH_SIZE = 100
 NUM_EPOCH = 50
-L2_PENALTY = 0.001
-WEIGHT_DECAY = 1e-4
+L2_PENALTY = 1e-4
 
 tf.random.set_seed(RANDOM_SEED)
 
@@ -41,7 +41,7 @@ class ConvExpansion(Layer):
             kernel_initializer = "he_normal",
             kernel_regularizer = keras.regularizers.l2(L2_PENALTY), use_bias=False)(block_input)
         
-        out = BatchNormalization()(out)
+        out = BatchNormalization(momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')(out)
         out = Activation("relu")(out)
         out = Conv2D(self.filters*self.width, kernel_size=[3, 3], strides=[1, 1], padding="same",
             kernel_initializer = "he_normal",
@@ -66,15 +66,17 @@ class ResNetBlock(Layer):
         out = block_input
 
         for i in range(self.depth):
-            out = BatchNormalization()(out)
+            out = BatchNormalization(momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')(out)
             out = Activation("relu")(out)
             out = Conv2D(filters=self.filters*self.width, kernel_size=[3, 3], strides = [1,1], padding="same",
-                kernel_regularizer = keras.regularizers.l2(L2_PENALTY), use_bias = False)(out)
+                kernel_regularizer = keras.regularizers.l2(L2_PENALTY),
+                kernel_initializer='he_normal',
+                use_bias = False)(out)
             if self.dropout_ratio and i % 2 == 0:
                 out = Dropout(self.dropout_ratio)(out)
         
         out = keras.layers.add([residual,out])
-        out = BatchNormalization()(out)
+        out = BatchNormalization(momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')(out)
         out = Activation("relu")(out)
         return out
 
@@ -85,8 +87,9 @@ class Model:
         depth_per_resnet_block = (depth - 4)//6
 
         self.sequential_model = Sequential([
-            Conv2D(base_filter_numbers, (3,3), activation="relu", input_shape = img_shape),
-            BatchNormalization(),
+            Conv2D(base_filter_numbers, (3,3), activation="relu", input_shape = img_shape,
+            kernel_initializer='he_normal'),
+            BatchNormalization(momentum=0.1, epsilon=1e-5, gamma_initializer='uniform'),
             Activation('relu'),
             ConvExpansion(base_filter_numbers*2, width),
             ResNetBlock(base_filter_numbers*2, width, depth_per_resnet_block, dropout_ratio),
@@ -107,7 +110,11 @@ class Model:
             steps_per_epoch = X_train.shape[0] // BATCH_SIZE,           
             epochs=NUM_EPOCH,
             verbose=1,
-            validation_data=(X_val, y_val)
+            validation_data=(X_val, y_val),
+            callbacks=[ModelCheckpoint("{}_model_weights.h5".format(dataset),
+                                                monitor="val_acc",
+                                                save_best_only=True,
+                                                verbose=1)],
         )
         return self.model_log
     
@@ -134,9 +141,9 @@ if __name__ == "__main__":
     X_train, X_val, y_train, y_val = train_test_split(X_training_set, y_training_set, test_size=1/6, random_state=RANDOM_SEED)
     
     datagen = ImageDataGenerator(
-        rotation_range=15,
-        width_shift_range=0.1,
-        height_shift_range=0.1,
+        rotation_range=10,
+        width_shift_range=5./32,
+        height_shift_range=5./32,
         horizontal_flip=True,
         zca_whitening=True
     )
