@@ -11,8 +11,13 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Layer, Input, Add, Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D, AveragePooling2D, BatchNormalization
 from tensorflow.keras.regularizers import l2
 
-weight_decay = 0.0005
+L2_PENALTY = 0.0005
 CHANNEL_AXIS = 1 if K.image_data_format() == "channels_first" else -1
+RANDOM_SEED = 31415
+BATCH_SIZE = 100
+NUM_EPOCHS = 50
+DROPOUT_RATE = 0.00
+
 
 class InitialConv(Layer):
     def __init__(self, img_shape):
@@ -20,7 +25,7 @@ class InitialConv(Layer):
         self.img_shape = img_shape
     def call(self, input_layer):
         x = Conv2D(16, (3, 3), padding='same', kernel_initializer='he_normal',
-                        kernel_regularizer=l2(weight_decay),
+                        kernel_regularizer=l2(L2_PENALTY),
                         use_bias=False, input_shape = self.img_shape)(input_layer)
 
         x = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')(x)
@@ -36,18 +41,18 @@ class ExpandConv(Layer):
 
     def call(self, input_layer):
         x = Conv2D(self.base * self.k, (3, 3), padding='same', strides = self.strides, kernel_initializer='he_normal',
-                        kernel_regularizer=l2(weight_decay),
+                        kernel_regularizer=l2(L2_PENALTY),
                         use_bias=False)(input_layer)
 
         x = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')(x)
         x = Activation('relu')(x)
 
         x = Conv2D(self.base * self.k, (3, 3), padding='same', kernel_initializer='he_normal',
-                        kernel_regularizer=l2(weight_decay),
+                        kernel_regularizer=l2(L2_PENALTY),
                         use_bias=False)(x)
 
         skip = Conv2D(self.base * self.k, (1, 1), padding='same', strides = self.strides, kernel_initializer='he_normal',
-                        kernel_regularizer=l2(weight_decay),
+                        kernel_regularizer=l2(L2_PENALTY),
                         use_bias=False)(input_layer)
 
         m = Add()([x, skip])
@@ -70,7 +75,7 @@ class ConvBlock(Layer):
         x = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')(input_layer)
         x = Activation('relu')(x)
         x = Conv2D(self.num_filters * self.k, (3, 3), padding='same', kernel_initializer='he_normal',
-                        kernel_regularizer=l2(weight_decay),
+                        kernel_regularizer=l2(L2_PENALTY),
                         use_bias=False)(x)
 
         if self.dropout > 0.0:
@@ -79,7 +84,7 @@ class ConvBlock(Layer):
         x = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')(x)
         x = Activation('relu')(x)
         x = Conv2D(self.num_filters * self.k, (3, 3), padding='same', kernel_initializer='he_normal',
-                        kernel_regularizer=l2(weight_decay),
+                        kernel_regularizer=l2(L2_PENALTY),
                         use_bias=False)(x)
 
         m = Add()([init, x])
@@ -116,7 +121,7 @@ class WideResNet:
         self.batchactive_3 = BatchActivate()
         self.avgpool = AveragePooling2D((8,8))
         self.flatten = Flatten()
-        self.dense = Dense(num_labels, kernel_regularizer=l2(weight_decay), activation='softmax')
+        self.dense = Dense(num_labels, kernel_regularizer=l2(L2_PENALTY), activation='softmax')
 
         self.model = Sequential([self.input_layer, self.initial_convolution, self.expansion_1,
             self.conv_1, self.batchactive_1, self.expansion_2,
@@ -176,9 +181,6 @@ else:
     print("cifar10: \n")
     from tensorflow.keras.datasets import cifar10 as cifar
 
-RANDOM_SEED = 31415
-BATCH_SIZE = 100
-NUM_EPOCHS = 100
 
 X_train, y_train, X_val, y_val, X_test, y_test = get_dataset()
 
@@ -193,7 +195,7 @@ num_labels = len(y_train[0])
 # For WRN-28-10 put N = 4, k = 10
 # For WRN-40-4 put N = 6, k = 4
 
-model = WideResNet(img_shape, num_labels=num_labels, N=2, k=8, dropout=0.00)
+model = WideResNet(img_shape, num_labels=num_labels, N=2, k=8, dropout=DROPOUT_RATE)
 model.compile()
 
 #model.load_weights("weights/WRN-16-8 Weights.h5")
