@@ -189,8 +189,12 @@ def get_dataset():
     y_train = keras.utils.to_categorical(y_train)
     y_test = keras.utils.to_categorical(y_test)
 
-    X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=1/12, random_state=RANDOM_SEED)
-    return X_train, y_train, X_val, y_val, X_test, y_test
+    
+    return X_train, y_train, X_test, y_test
+
+def split_training_set(X_train, y_train, test_size=1/10):
+    X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=test_size, random_state=RANDOM_SEED)
+    return X_train, y_train, X_val, y_val
 
 if len(sys.argv) > 1:
     dataset = sys.argv[1]
@@ -205,7 +209,8 @@ else:
     from tensorflow.keras.datasets import cifar10 as cifar
 
 
-X_train, y_train, X_val, y_val, X_test, y_test = get_dataset()
+X_train, y_train, X_test, y_test = get_dataset()
+#X_train, X_val, y_train, y_val = split_training_set(X_train, y_train)
 
 generator = ImageDataGenerator(rotation_range=10,
                                width_shift_range=5./32,
@@ -224,7 +229,7 @@ model.compile()
 #model.load_weights("weights/WRN-16-8 Weights.h5")
 #print("Model loaded.")
 
-model.fit_generator(generator, X_train, y_train, X_val, y_val)
+model.fit_generator(generator, X_train, y_train, X_test, y_test)
 
 model.test(X_test, y_test)
 #yPreds = model.predict(X_test)
