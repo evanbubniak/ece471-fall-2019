@@ -168,7 +168,8 @@ class WideResNet:
                 monitor="val_acc",
                 save_best_only=True,
                 verbose=1)],
-            validation_data=(X_val, y_val))
+            validation_data=(X_val, y_val),
+            validation_steps=X_val.shape[0] // BATCH_SIZE)
 
         return self.model_log
 
