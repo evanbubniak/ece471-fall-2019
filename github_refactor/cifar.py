@@ -3,7 +3,6 @@ import numpy as np
 import sklearn.metrics as metrics
 from sklearn.model_selection import train_test_split
 import tensorflow.keras as keras
-from tensorflow.keras.datasets import cifar10
 import tensorflow.keras.callbacks as callbacks
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras import backend as K
@@ -62,7 +61,7 @@ class ExpandConv(Layer):
     def call(self, input_layer):
         x = self.conv_1(input_layer)
 
-        x = self.bn_1(x)
+        x = self.bn(x)
         x = self.activation(x)
 
         x = self.conv_2(x)
