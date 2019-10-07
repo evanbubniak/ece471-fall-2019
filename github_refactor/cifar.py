@@ -189,7 +189,7 @@ def get_dataset():
     y_train = keras.utils.to_categorical(y_train)
     y_test = keras.utils.to_categorical(y_test)
 
-    X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=1/6, random_state=RANDOM_SEED)
+    X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=1/12, random_state=RANDOM_SEED)
     return X_train, y_train, X_val, y_val, X_test, y_test
 
 if len(sys.argv) > 1:
@@ -226,14 +226,14 @@ model.compile()
 
 model.fit_generator(generator, X_train, y_train, X_val, y_val)
 
-model.evaluate(X_test, y_test, verbose = 1)
+model.test(X_test, y_test)
 #yPreds = model.predict(X_test)
 # yPred = np.argmax(yPreds, axis=1)
 # yPred = keras.utils.to_categorical(yPred)
 # yTrue = y_test
 
-accuracy = metrics.accuracy_score(yTrue, yPred) * 100
-error = 100 - accuracy
-print("Accuracy : ", accuracy)
-print("Error : ", error)
+#accuracy = metrics.accuracy_score(yTrue, yPred) * 100
+#error = 100 - accuracy
+#print("Accuracy : ", accuracy)
+#print("Error : ", error)
 
