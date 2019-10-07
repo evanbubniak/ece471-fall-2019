@@ -23,13 +23,15 @@ class InitialConv(Layer):
     def __init__(self, img_shape):
         super(InitialConv, self).__init__()
         self.img_shape = img_shape
-    def call(self, input_layer):
-        x = Conv2D(16, (3, 3), padding='same', kernel_initializer='he_normal',
+        self.conv_layer = Conv2D(16, (3, 3), padding='same', kernel_initializer='he_normal',
                         kernel_regularizer=l2(L2_PENALTY),
-                        use_bias=False, input_shape = self.img_shape)(input_layer)
-
-        x = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')(x)
-        x = Activation('relu')(x)
+                        use_bias=False, input_shape = self.img_shape)
+        self.bn_layer = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')
+        self.activation_layer = Activation('relu')
+    def call(self, input_layer):
+        x = self.conv_layer(input_layer)
+        x = self.bn_layer(x)
+        x = self.activation_layer(x)
         return x
 
 class ExpandConv(Layer):
@@ -39,23 +41,35 @@ class ExpandConv(Layer):
         self.k = k
         self.strides = strides
 
+        self.conv_1 = Conv2D(self.base * self.k, (3, 3), padding='same', strides = self.strides, kernel_initializer='he_normal',
+                        kernel_regularizer=l2(L2_PENALTY),
+                        use_bias=False)
+        
+        self.bn = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')
+
+        self.activation = Activation('relu')
+
+        self.conv_2 = Conv2D(self.base * self.k, (3, 3), padding='same', kernel_initializer='he_normal',
+                        kernel_regularizer=l2(L2_PENALTY),
+                        use_bias=False)
+
+        self.skip_conv = Conv2D(self.base * self.k, (1, 1), padding='same', strides = self.strides, kernel_initializer='he_normal',
+                        kernel_regularizer=l2(L2_PENALTY),
+                        use_bias=False)
+
+        self.add = Add()
+
     def call(self, input_layer):
-        x = Conv2D(self.base * self.k, (3, 3), padding='same', strides = self.strides, kernel_initializer='he_normal',
-                        kernel_regularizer=l2(L2_PENALTY),
-                        use_bias=False)(input_layer)
+        x = self.conv_1(input_layer)
 
-        x = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')(x)
-        x = Activation('relu')(x)
+        x = self.bn_1(x)
+        x = self.activation(x)
 
-        x = Conv2D(self.base * self.k, (3, 3), padding='same', kernel_initializer='he_normal',
-                        kernel_regularizer=l2(L2_PENALTY),
-                        use_bias=False)(x)
+        x = self.conv_2(x)
 
-        skip = Conv2D(self.base * self.k, (1, 1), padding='same', strides = self.strides, kernel_initializer='he_normal',
-                        kernel_regularizer=l2(L2_PENALTY),
-                        use_bias=False)(input_layer)
+        skip = self.skip_conv(input_layer)
 
-        m = Add()([x, skip])
+        m = self.add([x, skip])
 
         return m
 
@@ -68,26 +82,36 @@ class ConvBlock(Layer):
         self.k = k
         self.dropout = dropout
 
+        self.bn_layer_1 = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')
+        self.activation_1 = Activation('relu')
+        self.conv_1 = Conv2D(self.num_filters * self.k, (3, 3), padding='same', kernel_initializer='he_normal',
+                        kernel_regularizer=l2(L2_PENALTY),
+                        use_bias=False)
+        self.dropout_layer = Dropout(self.dropout)
+        self.bn_layer_2 = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')
+        self.activation_2 = Activation('relu')
+        self.conv_2 = Conv2D(self.num_filters * self.k, (3, 3), padding='same', kernel_initializer='he_normal',
+                        kernel_regularizer=l2(L2_PENALTY),
+                        use_bias=False)
+
+        self.add = Add()
+
     def call(self, input_layer):
 
         init = input_layer
 
-        x = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')(input_layer)
-        x = Activation('relu')(x)
-        x = Conv2D(self.num_filters * self.k, (3, 3), padding='same', kernel_initializer='he_normal',
-                        kernel_regularizer=l2(L2_PENALTY),
-                        use_bias=False)(x)
+        x = self.bn_layer_1(input_layer)
+        x = self.activation_1(x)
+        x = self.conv_1(x)
 
         if self.dropout > 0.0:
-            x = Dropout(self.dropout)(x)
+            x = self.dropout_layer(x)
 
-        x = BatchNormalization(axis=CHANNEL_AXIS, momentum=0.1, epsilon=1e-5, gamma_initializer='uniform')(x)
-        x = Activation('relu')(x)
-        x = Conv2D(self.num_filters * self.k, (3, 3), padding='same', kernel_initializer='he_normal',
-                        kernel_regularizer=l2(L2_PENALTY),
-                        use_bias=False)(x)
+        x = self.bn_layer_2(x)
+        x = self.activation_2(x)
+        x = self.conv_2(x)
 
-        m = Add()([init, x])
+        m = self.add([init, x])
         return m
 
 class BatchActivate(Layer):
