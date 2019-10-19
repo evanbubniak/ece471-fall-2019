@@ -7,10 +7,8 @@ import tensorflow.keras.callbacks as callbacks
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras import backend as K
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Layer, Input, Add, Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D, AveragePooling2D, BatchNormalization
+from tensorflow.keras.layers import Layer, Input, Add, Activation, Dropout, Flatten, Dense, Conv2D, AveragePooling2D, BatchNormalization
 from tensorflow.keras.regularizers import l2
-from tensorflow.keras.datasets import cifar100
-from tensorflow.keras.datasets import cifar10
 
 L2_PENALTY = 0.0005
 CHANNEL_AXIS = 1 if K.image_data_format() == "channels_first" else -1
@@ -20,12 +18,12 @@ NUM_EPOCHS = 50
 DROPOUT_RATE = 0.00
 
 if len(sys.argv) > 1:
-    dataset = sys.argv[1]
+    DATASET = sys.argv[1]
 else:
-    dataset = "cifar10"
+    DATASET = "cifar10"
 
 
-if dataset == "cifar100":
+if DATASET == "cifar100":
     print("---CIFAR-100---:")
     from tensorflow.keras.datasets import cifar100 as cifar
 else:
@@ -119,7 +117,7 @@ class WideResNet:
             generator.flow(X_train, y_train, batch_size=BATCH_SIZE),
             steps_per_epoch=len(X_train) // BATCH_SIZE,
             epochs=NUM_EPOCHS,
-            callbacks=[callbacks.ModelCheckpoint("{}-weights.h5".format(dataset),
+            callbacks=[callbacks.ModelCheckpoint("{}-weights.h5".format(DATASET),
                 monitor="val_acc",
                 save_best_only=True,
                 verbose=1)],
@@ -133,7 +131,7 @@ class WideResNet:
         self.model.evaluate(X_test, y_test, verbose = 1)
        
     def load_weights(self):
-        self.model.load_weights("{}-weights.h5".format(dataset))
+        self.model.load_weights("{}-weights.h5".format(DATASET))
 
 def get_dataset():
     (X_train, y_train), (X_test, y_test) = cifar.load_data()
@@ -158,7 +156,8 @@ def split_training_set(X_train, y_train, test_size=1/10):
     
 generator = ImageDataGenerator(rotation_range=10,
                                width_shift_range=5./32,
-                               height_shift_range=5./32,)
+                               height_shift_range=5./32,
+                               zca_whitening = True)
 
 
 X_train, y_train, X_test, y_test = get_dataset()
