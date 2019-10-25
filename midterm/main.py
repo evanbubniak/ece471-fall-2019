@@ -5,7 +5,7 @@ from utils.data_corruption import *
 from utils.MiniInceptionV3 import MiniInceptionV3
 from math import ceil
 
-BATCH_SIZE = 128
+BATCH_SIZE = 200
 STEPS_PER_EPOCH = ceil(50000 / BATCH_SIZE)
 def preprocess_input(x_input):
     '''
