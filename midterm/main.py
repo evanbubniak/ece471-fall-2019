@@ -1,4 +1,4 @@
-import tensorflow as tf
+import tensorflow.keras as keras
 from tensorflow.keras.datasets import cifar10
 from tensorflow.image import per_image_standardization
 from utils.data_corruption import *

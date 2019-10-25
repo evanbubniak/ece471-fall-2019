@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 def randomize_labels(num_labels, num_unique_labels):
     random_labels = np.random.randint(low=0, high=num_unique_labels, size=num_labels)
@@ -24,13 +23,3 @@ def add_gaussian_noise(normalized_pixel_data):
 def create_gaussian_noise(normalized_pixel_data):
     noisy_pixel_data = np.random.normal(0.5,1,normalized_pixel_data.shape)
     return noisy_pixel_data
-
-
-#garbage_pixel_data = np.array([[[0.2,0.3,0.5],[0.3,0.2,0.5],[0.6,1,0.4]],[[0.4,0.9,0.7],[0.1,0.2,0.3],[0.4,0.5,0.6]]])
-garbage_pixel_data = np.random.uniform(low=0,high=1,size=(10, 32, 32, 3))
-randomized_pixel_data = randomize_pixels(garbage_pixel_data)
-shuffled_pixel_data = shuffle_pixels(garbage_pixel_data)
-gaussian_pixel_data = add_gaussian_noise(garbage_pixel_data)
-
-
-print(gaussian_pixel_data)
