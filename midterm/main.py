@@ -44,5 +44,5 @@ for job_name, step_count, data_input in zip(CORRUPTION_TYPE, NUM_STEPS, DATA_INP
         num_labels = 10
         )
     inception_model.compile()
-    inception_model.fit(*data_input, X_test, y_test, num_epochs, job_name)
+    inception_model.fit(*data_input, X_test, y_test, num_epochs, job_name, BATCH_SIZE)
     inception_model.evaluate(X_test, y_test)

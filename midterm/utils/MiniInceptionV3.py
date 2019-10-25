@@ -7,6 +7,9 @@ RATE_DECAY_FACTOR_PER_EPOCH = 0.95
 MOMENTUM_PARAMETER = 0.9
 BATCH_SIZE = 128
 
+def learning_rate_schedule(epoch_num):
+    return INITIAL_LEARNING_RATE*(RATE_DECAY_FACTOR_PER_EPOCH)**(epoch_num)
+
 if keras.backend.image_data_format() == 'channels_first':
     CHANNEL_AXIS = 1
 else:
@@ -87,9 +90,8 @@ class MiniInceptionV3:
     
     def compile(self):
 
-        sgd = keras.optimizers.SGD(lr = INITIAL_LEARNING_RATE,
+        sgd = keras.optimizers.SGD(learning_rate = INITIAL_LEARNING_RATE,
             momentum = MOMENTUM_PARAMETER,
-            decay = RATE_DECAY_FACTOR_PER_EPOCH,
             nesterov = False
             )
 
@@ -98,16 +100,17 @@ class MiniInceptionV3:
         print("Finished compiling")
         self.model.summary()
     
-    def fit(self, X_train, y_train, X_val, y_val, num_epoch, name, load_weights = False):
+    def fit(self, X_train, y_train, X_val, y_val, num_epoch, name, batch_size, load_weights = False):
         if load_weights:
             self.model.load_weights("{}-weights.h5".format(name))
 
         self.model_log = self.model.fit(X_train, y_train,
-            batch_size = BATCH_SIZE,
+            batch_size = batch_size,
             epochs = num_epoch,
             verbose = 1,
             validation_data = (X_val, y_val),
             callbacks = [
+                keras.callbacks.LearningRateScheduler(learning_rate_schedule, verbose = 0),
                 keras.callbacks.ModelCheckpoint("{}-weights.h5".format(name),
                     monitor="val_acc",
                     save_best_only=True,
