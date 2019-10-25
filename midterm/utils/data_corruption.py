@@ -23,3 +23,11 @@ def add_gaussian_noise(normalized_pixel_data):
 def create_gaussian_noise(normalized_pixel_data):
     noisy_pixel_data = np.random.normal(0.5,1,normalized_pixel_data.shape)
     return noisy_pixel_data
+
+def create_gaussian_noise_from_pixel_data(normalized_pixel_data):
+    pixel_data = normalized_pixel_data.astype('float32')
+    mean = pixel_data.mean(axis=0)
+    std = pixel_data.std(axis=0)
+    noisy_pixel_data = np.random.normal(mean,std,normalized_pixel_data.shape)
+    np.clip(noisy_pixel_data, a_min=0, a_max = 1, out=noisy_pixel_data)
+    return noisy_pixel_data

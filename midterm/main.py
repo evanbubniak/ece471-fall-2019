@@ -32,7 +32,7 @@ true_inputs = [X_train, y_train]
 random_labels = [X_train, randomize_labels(y_train.shape[0], 10)]
 shuffled_pixels = [shuffle_pixels(X_train), y_train]
 random_pixels = [randomize_pixels(X_train), y_train]
-gaussian = [create_gaussian_noise(X_train), y_train]
+gaussian = [create_gaussian_noise_from_pixel_data(X_train), y_train]
 DATA_INPUTS = [true_inputs, random_labels, shuffled_pixels, random_pixels, gaussian]
 
 for job_name, step_count, data_input in zip(CORRUPTION_TYPE, NUM_STEPS, DATA_INPUTS):
@@ -45,3 +45,4 @@ for job_name, step_count, data_input in zip(CORRUPTION_TYPE, NUM_STEPS, DATA_INP
         )
     inception_model.compile()
     inception_model.fit(*data_input, X_test, y_test, num_epochs, job_name)
+    inception_model.evaluate(X_test, y_test)

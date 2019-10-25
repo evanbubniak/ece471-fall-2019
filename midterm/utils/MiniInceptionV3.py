@@ -117,7 +117,7 @@ class MiniInceptionV3:
 
         return self.model_log
 
-    def test(self, X_test, y_test):
+    def evaluate(self, X_test, y_test):
         self.model.evaluate(X_test, y_test, verbose = 1)
 
 
