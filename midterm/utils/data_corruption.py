@@ -6,7 +6,7 @@ def randomize_labels(num_labels, num_unique_labels):
     return categorical_random_labels
 
 def shuffle_pixels(normalized_pixel_data):
-    shuffled_pixel_data = normalized_pixel_data
+    shuffled_pixel_data = normalized_pixel_data.numpy()
     np.random.shuffle(shuffled_pixel_data)
     return shuffled_pixel_data
 
