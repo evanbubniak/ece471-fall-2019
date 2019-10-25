@@ -112,7 +112,7 @@ class MiniInceptionV3:
             callbacks = [
                 keras.callbacks.LearningRateScheduler(learning_rate_schedule, verbose = 0),
                 keras.callbacks.ModelCheckpoint("{}-weights.h5".format(name),
-                    monitor="val_acc",
+                    monitor="acc",
                     save_best_only=True,
                     verbose=1),
                 keras.callbacks.CSVLogger("{}.csv".format(name))]
