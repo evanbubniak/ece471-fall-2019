@@ -14,6 +14,7 @@ def shuffle_pixels(normalized_pixel_data):
     l = len(normalized_pixel_data.shape)
     for i in range(1,l):
         shuffled_pixel_data = shuffle_along_axis(normalized_pixel_data,i)
+
     return shuffled_pixel_data
 
 def randomize_pixels(normalized_pixel_data):
