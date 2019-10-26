@@ -10,10 +10,10 @@ def shuffle_along_axis(a, axis):
     return np.take_along_axis(a,idx,axis=axis)
 
 def shuffle_pixels(normalized_pixel_data):
-    normalized_pixel_data = normalized_pixel_data.numpy()
-    l = len(normalized_pixel_data.shape)
+    shuffled_pixel_data = normalized_pixel_data.numpy()
+    l = len(shuffled_pixel_data.shape)
     for i in range(1,l)
-        shuffle_along_axis(normalized_pixel_data,i)
+        shuffle_along_axis(shuffled_pixel_data,i)
     return shuffled_pixel_data
 
 def randomize_pixels(normalized_pixel_data):
