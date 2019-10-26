@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from math import ceil
 
-def plot_results(batch_size, num_samples):
+def plot_results(steps_per_epoch):
     label_markers = ['true', 'random_labels', 'shuffled', 'random_pixels', 'gaussian']
 
     datasets = []
@@ -15,8 +15,6 @@ def plot_results(batch_size, num_samples):
                 data = pd.read_csv(path)
                 label_data = label_data.append(data, sort = False)
         datasets.append(data)
-
-    steps_per_epoch = ceil(num_samples / batch_size)
 
     for dataset in datasets:
         dataset["thousand steps"] = ((dataset["epoch"] + 1)*steps_per_epoch)/1000

@@ -68,10 +68,13 @@ class MidtermModel:
         return self.initial_learning_rate*(RATE_DECAY_FACTOR_PER_EPOCH)**(epoch_num)
 
 class MiniInceptionV3(MidtermModel):
-    def __init__(self, input_shape, num_labels=10):
+    def __init__(self, input_shape, num_labels=10, use_batch_norm = True):
         super(MiniInceptionV3, self).__init__()
         self.initial_learning_rate = 0.1
         self.model_name = "MiniInceptionV3"
+        if not use_batch_norm:
+            self.model_name += " w/o BatchNorm"
+        self.use_batch_norm = use_batch_norm
         input_layer = keras.layers.Input(shape = input_shape)
         x = self.conv_module(input_layer, 96, kernel_size = (3,3), strides = (1,1))
         x = self.inception_module(x, 32, 32)
@@ -96,7 +99,8 @@ class MiniInceptionV3(MidtermModel):
             strides=strides,
             padding=padding,
             use_bias=False)(x)
-        x = keras.layers.BatchNormalization(axis=BATCHNORM_AXIS, scale=False)(x)
+        if self.use_batch_norm:
+            x = keras.layers.BatchNormalization(axis=BATCHNORM_AXIS, scale=False)(x)
         x = keras.layers.Activation('relu')(x)
         return x
 
@@ -160,5 +164,5 @@ class MLP(MidtermModel):
             x = Activation("relu")(x)
         x = Dense(num_labels, activation = "softmax", name = "predictions")(x)
 
-        self.model = self.model = keras.models.Model(input_layer, x, name=self.model_name)
+        self.model = keras.models.Model(input_layer, x, name=self.model_name)
         

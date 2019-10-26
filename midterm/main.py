@@ -1,12 +1,13 @@
 import tensorflow.keras as keras
 from tensorflow.keras.datasets import cifar10
 from tensorflow.image import per_image_standardization
-from utils.data_corruption import *
-from utils.Models import *
+from utils import *
 from math import ceil
+import sys
 
 BATCH_SIZE = 200
-STEPS_PER_EPOCH = ceil(50000 / BATCH_SIZE)
+NUM_SAMPLES = 50000
+STEPS_PER_EPOCH = ceil(NUM_SAMPLES / BATCH_SIZE)
 def preprocess_input(x_input):
     '''
     Do not casually run this on a laptop. It will crash your whole computer and it will be your fault.
@@ -18,6 +19,38 @@ def preprocess_input(x_input):
 
 def preprocess_labels(y_input):
     return keras.utils.to_categorical(y_input)
+
+def get_model(model_code):
+    if model_code == 1:
+        return MiniInceptionV3(
+            input_shape = X.shape[1:],
+            num_labels = 10
+            )
+    elif model_code == 2:
+        return MiniInceptionV3(
+            input_shape = X.shape[1:],
+            num_labels = 10,
+            use_batch_norm = False
+            )
+    elif model_code == 3:
+        return AlexNet(
+            input_shape = X.shape[1:],
+            num_labels = 10
+        )
+    elif model_code == 4:
+        return MLP(
+            input_shape = X.shape[1:],
+            num_labels = 10,
+            num_hidden_layers = 1
+        )
+    elif model_code == 5:
+        return MLP(
+            input_shape = X.shape[1:],
+            num_labels = 10,
+            num_hidden_layers = 3
+        )
+        
+model_codes = sys.argv[1:]
 
 (X_train, y_train), (X_test, y_test) = cifar10.load_data()
 
@@ -35,14 +68,12 @@ random_pixels = [randomize_pixels(X_train), y_train]
 gaussian = [create_gaussian_noise_from_pixel_data(X_train), y_train]
 DATA_INPUTS = [true_inputs, random_labels, shuffled_pixels, random_pixels, gaussian]
 
-for job_name, step_count, data_input in zip(CORRUPTION_TYPE, NUM_STEPS, DATA_INPUTS):
-    X = data_input[0]
-    y = data_input[1]
-    num_epochs = ceil(step_count / STEPS_PER_EPOCH)
-    inception_model = MiniInceptionV3(
-        input_shape = X.shape[1:],
-        num_labels = 10
-        )
-    inception_model.compile()
-    inception_model.fit(*data_input, X_test, y_test, num_epochs, job_name, BATCH_SIZE)
-    inception_model.evaluate(X_test, y_test)
+for model_code in model_codes:
+    for job_name, step_count, data_input in zip(CORRUPTION_TYPE, NUM_STEPS, DATA_INPUTS):
+        X = data_input[0]
+        y = data_input[1]
+        num_epochs = ceil(step_count / STEPS_PER_EPOCH)
+        model = get_model(model_code)
+        model.compile()
+        model.fit(*data_input, X_test, y_test, num_epochs, job_name, BATCH_SIZE)
+        model.evaluate(X_test, y_test)
