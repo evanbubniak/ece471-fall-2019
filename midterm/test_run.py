@@ -39,7 +39,7 @@ for job_name, step_count, data_input in zip(CORRUPTION_TYPE, NUM_STEPS, DATA_INP
     X = data_input[0]
     y = data_input[1]
     num_epochs = ceil(step_count / STEPS_PER_EPOCH)
-    inception_model = MiniInceptionV3(
+    inception_model = AlexNet(
         input_shape = X.shape[1:],
         num_labels = 10
         )
