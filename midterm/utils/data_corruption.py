@@ -12,20 +12,18 @@ def shuffle_along_axis(a, axis):
 def shuffle_pixels(normalized_pixel_data):
     normalized_pixel_data = normalized_pixel_data.numpy()
     l = len(normalized_pixel_data.shape)
-    for i in range(1,l)
-        shuffle_along_axis(normalized_pixel_data,i)
+    for i in range(1,l):
+        shuffled_pixel_data = shuffle_along_axis(normalized_pixel_data,i)
     return shuffled_pixel_data
 
 def randomize_pixels(normalized_pixel_data):
     randomized_pixel_data = np.random.uniform(low = 0, high = 1.0, size=(normalized_pixel_data.shape))
     return randomized_pixel_data
 
-def add_gaussian_noise(normalized_pixel_data):
-    noise = np.random.normal(0,1,normalized_pixel_data.shape)
-    noisy_pixel_data = normalized_pixel_data + noise
-    np.clip(noisy_pixel_data, a_min=0, a_max = 1, out=noisy_pixel_data)
-    return noisy_pixel_data
-
 def create_gaussian_noise(normalized_pixel_data):
-    noisy_pixel_data = np.random.normal(0.5,1,normalized_pixel_data.shape)
+    pixel_data = normalized_pixel_data.numpy().astype('float32')
+    mean = pixel_data.mean(axis=0)
+    std = pixel_data.std(axis=0)
+    noisy_pixel_data = np.random.normal(mean,std,normalized_pixel_data.shape)
+    np.clip(noisy_pixel_data, a_min=0, a_max = 1, out=noisy_pixel_data)
     return noisy_pixel_data

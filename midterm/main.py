@@ -65,7 +65,7 @@ true_inputs = [X_train, y_train]
 random_labels = [X_train, randomize_labels(y_train.shape[0], 10)]
 shuffled_pixels = [shuffle_pixels(X_train), y_train]
 random_pixels = [randomize_pixels(X_train), y_train]
-gaussian = [create_gaussian_noise_from_pixel_data(X_train), y_train]
+gaussian = [create_gaussian_noise(X_train), y_train]
 DATA_INPUTS = [true_inputs, random_labels, shuffled_pixels, random_pixels, gaussian]
 
 for model_code in model_codes:
