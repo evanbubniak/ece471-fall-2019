@@ -5,7 +5,6 @@ import os
 INITIAL_LEARNING_RATE = 0.1
 RATE_DECAY_FACTOR_PER_EPOCH = 0.95
 MOMENTUM_PARAMETER = 0.9
-BATCH_SIZE = 128
 
 def learning_rate_schedule(epoch_num):
     return INITIAL_LEARNING_RATE*(RATE_DECAY_FACTOR_PER_EPOCH)**(epoch_num)

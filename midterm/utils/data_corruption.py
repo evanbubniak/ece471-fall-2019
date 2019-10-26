@@ -1,5 +1,7 @@
 import numpy as np
 
+np.random.seed(31415)
+
 def randomize_labels(num_labels, num_unique_labels):
     random_labels = np.random.randint(low=0, high=num_unique_labels, size=num_labels)
     categorical_random_labels = np.eye(num_unique_labels)[random_labels]
