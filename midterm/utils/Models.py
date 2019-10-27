@@ -1,9 +1,18 @@
 import tensorflow.keras as keras
 from tensorflow.keras.layers import Input, Conv2D, Activation, MaxPooling2D, Dense, Dropout, Flatten
+import os
 
 RATE_DECAY_FACTOR_PER_EPOCH = 0.95
 MOMENTUM_PARAMETER = 0.9
 DROPOUT_RATE = 0.5
+
+everything_in_dir = os.listdir(os.getcwd())
+folders_in_dir = filter(lambda f: os.path.isdir(f) and "output" in f, everything_in_dir)
+max_folder_num = 0
+for folder in folders_in_dir:
+    folder_num = folder[(folder.find("_") + 1):]
+    max_folder_num = max(int(folder_num), max_folder_num)
+OUTPUT_DIR = "output_{}".format(max_folder_num + 1)
 
 if keras.backend.image_data_format() == 'channels_first':
     CHANNEL_AXIS = 1
@@ -36,21 +45,25 @@ class MidtermModel:
     
     def fit(self, X_train, y_train, X_val, y_val, num_epoch, data_name, batch_size, load_weights = False):
         run_name = "{}-{}".format(self.model_name, data_name)
+        weights_file_name = "{}-weights.h5".format(run_name)
+        weights_output_path = os.path.join(OUTPUT_DIR, weights_file_name) 
+        log_file_name = "{}.csv".format(run_name)
+        log_output_path = os.path.join(OUTPUT_DIR, log_file_name) 
         
         callbacks = [
                 keras.callbacks.LearningRateScheduler(
                     self.learning_rate_schedule,
                     verbose = 0),
-                keras.callbacks.ModelCheckpoint("{}-weights.h5".format(run_name),
+                keras.callbacks.ModelCheckpoint(weights_output_path,
                     monitor="acc",
                     save_best_only=True,
                     verbose=1),
                 keras.callbacks.CSVLogger(
-                    "{}.csv".format(run_name))
+                    log_output_path)
                 ]
 
         if load_weights:
-            self.model.load_weights("{}-weights.h5".format(run_name))
+            self.model.load_weights(weights_output_path)
 
         self.model_log = self.model.fit(X_train, y_train,
             batch_size = batch_size,
