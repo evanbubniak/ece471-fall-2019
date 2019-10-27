@@ -9,9 +9,9 @@ def plot_results(steps_per_epoch):
     datasets = []
     for label in label_markers:
         label_data = pd.DataFrame()
-        for file in os.listdir(os.getcwd()):
-            if ".csv" in file and label in file:
-                path = os.path.join(os.getcwd(), file)
+        for file_name in os.listdir(os.getcwd()):
+            if ".csv" in file_name and label in file_name:
+                path = os.path.join(os.getcwd(), file_name)
                 data = pd.read_csv(path)
                 label_data = label_data.append(data, sort = False)
         datasets.append(data)
@@ -20,7 +20,7 @@ def plot_results(steps_per_epoch):
         dataset["thousand steps"] = ((dataset["epoch"] + 1)*steps_per_epoch)/1000
 
     true_label_format = [{'c': "blue", 'marker': 's', 'edgecolors': 'black'},
-                    {'c': "blue"}]
+                        {'c': "blue"}]
 
     random_label_format = [{'c': "red", 'marker': 'o', 'edgecolors': 'black'},
                         {'c': "red"}]
@@ -35,32 +35,48 @@ def plot_results(steps_per_epoch):
                         {'c': "black"}]
 
     formats = [true_label_format, random_label_format, shuffled_pixel_format, random_pixel_format, gaussian_format]
-
-    plt.figure(figsize=(5,5))
+    legend_names = ['true labels', 'random labels', 'shuffled pixels', 'random pixels', 'gaussian']
+    
+    fig1 = plt.figure(figsize=(3,3))
     i = 0
+    array_of_linmarks=[]
     for dataset, data_format in zip(datasets, formats):
+        lin = None
+        mark = None
+        ax = plt.gca()
         z = 5 if i == 3 else 0
         if i != 3:
-            plt.scatter(dataset["thousand steps"].values[1:],
+            mark = ax.scatter(dataset["thousand steps"].values[1:],
                         dataset["loss"].values[1:],
+                        s = 10,
                         zorder = 10,
                         **data_format[0])
-        plt.plot(dataset["thousand steps"].values[1:],
+        lin, = ax.plot(dataset["thousand steps"].values[1:],
                 dataset["loss"].values[1:],
                 zorder = z,
                 **data_format[1]
             )
-
+        if mark:
+            array_of_linmarks.append((lin, mark))
+        else:
+            array_of_linmarks.append((lin))
         i+=1
+    ax.tick_params(axis = 'both', direction = 'in', top = True, right = True)
+    leg = ax.legend(array_of_linmarks, legend_names, scatterpoints=2, framealpha = 1, scatteryoffsets=[0.5])
+    leg.set_zorder(20)
+    leg.get_frame().set_facecolor('w')
+    ax.set_xticks([0, 5, 10, 15, 20, 25])
+    ax.set_yticks([0, 0.5, 1, 1.5, 2.0, 2.5])
 
-    plt.legend(['true labels', 'random labels', 'shuffled pixels', 'random pixels', 'gaussian'])
+    plt.draw()
+
     plt.xlabel("thousand steps")
     plt.ylabel("average_loss")
     plt.xlim(0, 25)
     plt.ylim(0, 2.5)
-    plt.savefig("output.eps")
-    plt.savefig("output.png")
-
+    plt.tight_layout()
+    fig1.savefig("output.eps")
+    fig1.savefig("output.png")
 
 # Need input data [training_step_num, average_loss] for each one.
 

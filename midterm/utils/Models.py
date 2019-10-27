@@ -73,7 +73,7 @@ class MiniInceptionV3(MidtermModel):
         self.initial_learning_rate = 0.1
         self.model_name = "MiniInceptionV3"
         if not use_batch_norm:
-            self.model_name += " w/o BatchNorm"
+            self.model_name += "_without_BatchNorm"
         self.use_batch_norm = use_batch_norm
         input_layer = keras.layers.Input(shape = input_shape)
         x = self.conv_module(input_layer, 96, kernel_size = (3,3), strides = (1,1))
@@ -90,7 +90,7 @@ class MiniInceptionV3(MidtermModel):
         x = keras.layers.GlobalAveragePooling2D(data_format = keras.backend.image_data_format())(x)
         x = keras.layers.Dense(num_labels, activation='softmax', name='predictions')(x)
 
-        self.model = keras.models.Model(input_layer, x, name='inception_v3')
+        self.model = keras.models.Model(input_layer, x, name=self.model_name)
 
     def conv_module(self, input_layer, filters, kernel_size, padding='same', strides=(1, 1)):
         x = keras.layers.Conv2D(
@@ -201,7 +201,7 @@ class AlexNet(MidtermModel):
 class MLP(MidtermModel):
     def __init__(self, input_shape, num_labels=10, num_hidden_layers = 1, num_hidden_units = 512):
         super(MLP, self).__init__()
-        self.model_name = "MLP {}x{}".format(num_hidden_layers, num_hidden_units)
+        self.model_name = "MLP_{}x{}".format(num_hidden_layers, num_hidden_units)
         input_layer = Input(shape = input_shape)
         x = Flatten()(input_layer)
         for hidden_layer in range(num_hidden_layers):
