@@ -1,6 +1,5 @@
 import tensorflow.keras as keras
 from tensorflow.keras.datasets import cifar10
-from tensorflow.image import per_image_standardization
 from utils import *
 from math import ceil
 import sys
@@ -8,17 +7,6 @@ import sys
 BATCH_SIZE = 200
 NUM_SAMPLES = 50000
 STEPS_PER_EPOCH = ceil(NUM_SAMPLES / BATCH_SIZE)
-def preprocess_input(x_input):
-    '''
-    Do not casually run this on a laptop. It will crash your whole computer and it will be your fault.
-    '''
-    x_out = x_input/255
-    x_out = x_out[:, 2:-2, 2:-2, :]
-    x_out = per_image_standardization(x_out)
-    return x_out
-
-def preprocess_labels(y_input):
-    return keras.utils.to_categorical(y_input)
 
 def get_model(model_code):
     if model_code == 1:
