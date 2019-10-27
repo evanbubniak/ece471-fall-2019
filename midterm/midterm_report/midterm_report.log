@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.2.13)  27 OCT 2019 14:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.2.13)  27 OCT 2019 15:31
 entering extended mode
-**./assignment1.tex
-(assignment1.tex
+**./midterm_report.tex
+(midterm_report.tex
 LaTeX2e <2018-12-01>
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\article.cls"
 Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
@@ -19,14 +19,38 @@ File: size12.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
+) ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\inputenc.st
+y"
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
 )
+LaTeX Font Info:    Try loading font information for T1+txtt on input line 5.
+
+("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/txfonts\t1txtt.fd"
+File: t1txtt.fd 2000/12/15 v3.1
+)
+("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\color.sty
+"
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\color
+.cfg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+
+("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdfte
+x.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/enumitem\enumitem.
 sty"
 Package: enumitem 2019/02/04 v3.8 Customized lists
-\enitkv@toks@=\toks14
+\enitkv@toks@=\toks16
 \labelindent=\skip43
 \enit@outerparindent=\dimen103
-\enit@toks=\toks15
+\enit@toks=\toks17
 \enit@inbox=\box27
 \enit@count@id=\count88
 \enitdp@description=\count89
@@ -45,7 +69,7 @@ Package: amstext 2000/06/29 v2.01 AMS text
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty
 "
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks16
+\@emptytoks=\toks18
 \ex@=\dimen104
 ))
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsbsy.sty
@@ -77,21 +101,21 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
 \dotsspace@=\muskip10
 \c@parentequation=\count97
 \dspbrk@lvl=\count98
-\tag@help=\toks17
+\tag@help=\toks19
 \row@=\count99
 \column@=\count100
 \maxfields@=\count101
-\andhelp@=\toks18
+\andhelp@=\toks20
 \eqnshift@=\dimen107
 \alignsep@=\dimen108
 \tagshift@=\dimen109
 \tagwidth@=\dimen110
 \totwidth@=\dimen111
 \lineht@=\dimen112
-\@envbody=\toks19
+\@envbody=\toks21
 \multlinegap=\skip45
 \multlinetaggap=\skip46
-\mathdisplay@stack=\toks20
+\mathdisplay@stack=\toks22
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
 )
@@ -102,7 +126,7 @@ Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\keyval.st
 y"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks21
+\KV@toks@=\toks23
 )
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphics.
 sty"
@@ -116,11 +140,7 @@ ics.cfg"
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
-
-("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdfte
-x.def"
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
-))
+)
 \Gin@req@height=\dimen113
 \Gin@req@width=\dimen114
 )
@@ -130,14 +150,14 @@ y"
 \WF@size=\dimen116
 \c@WF@wrappedlines=\count102
 \WF@box=\box30
-\WF@everypar=\toks22
+\WF@everypar=\toks24
 Package: wrapfig 2003/01/31  v 3.6
 ) ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count103
-\float@exts=\toks23
+\float@exts=\toks25
 \float@box=\box31
-\@float@everytoks=\toks24
+\@float@everytoks=\toks26
 \@floatcapt=\box32
 )
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ncctools\nccmath.s
@@ -148,8 +168,8 @@ Package: nccmath 2006/01/20 v1.3 Additional Math Commands (NCC)
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\verbatim.sty
 "
 Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks25
-\verbatim@line=\toks26
+\every@verbatim=\toks27
+\verbatim@line=\toks28
 \verbatim@in@stream=\read1
 )
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fancyvrb\fancyvrb.
@@ -191,7 +211,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutheight=\dimen123
 \Gm@layouthoffset=\dimen124
 \Gm@layoutvoffset=\dimen125
-\Gm@dimlist=\toks27
+\Gm@dimlist=\toks29
 
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
 cfg"))
@@ -201,6 +221,34 @@ Package: changepage 2009/10/20 v1.0c check page and change page layout
 \c@cp@cntr=\count110
 \cp@tempcnt=\count111
 )
+("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\listings.
+sty"
+\lst@mode=\count112
+\lst@gtempboxa=\box34
+\lst@token=\toks30
+\lst@length=\count113
+\lst@currlwidth=\dimen126
+\lst@column=\count114
+\lst@pos=\count115
+\lst@lostspace=\dimen127
+\lst@width=\dimen128
+\lst@newlines=\count116
+\lst@lineno=\count117
+\lst@maxwidth=\dimen129
+
+("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstmisc.s
+ty"
+File: lstmisc.sty 2019/09/10 1.8c (Carsten Heinz)
+\c@lstnumber=\count118
+\lst@skipnumbers=\count119
+\lst@framebox=\box35
+)
+("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\listings.
+cfg"
+File: listings.cfg 2019/09/10 1.8c listings configuration
+))
+Package: listings 2019/09/10 1.8c (Carsten Heinz)
+
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/adjustbox\adjustbo
 x.sty"
 Package: adjustbox 2019/01/04 v1.2 Adjusting TeX boxes (trim, clip, ...)
@@ -213,10 +261,10 @@ Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 tex"
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xkeyval\xkvutils
 .tex"
-\XKV@toks=\toks28
-\XKV@tempa@toks=\toks29
+\XKV@toks=\toks31
+\XKV@tempa@toks=\toks32
 )
-\XKV@depth=\count112
+\XKV@depth=\count120
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/adjustbox\adjcalc.
@@ -231,70 +279,70 @@ Package: trimclip 2018/04/08 v1.1 Trim and clip general TeX material
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/collectbox\collect
 box.sty"
 Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
-\collectedbox=\box34
+\collectedbox=\box36
 )
-\tc@llx=\dimen126
-\tc@lly=\dimen127
-\tc@urx=\dimen128
-\tc@ury=\dimen129
+\tc@llx=\dimen130
+\tc@lly=\dimen131
+\tc@urx=\dimen132
+\tc@ury=\dimen133
 Package trimclip Info: Using driver 'tc-pdftex.def'.
 
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/adjustbox\tc-pdfte
 x.def"
 File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 ))
-\adjbox@Width=\dimen130
-\adjbox@Height=\dimen131
-\adjbox@Depth=\dimen132
-\adjbox@Totalheight=\dimen133
-\adjbox@pwidth=\dimen134
-\adjbox@pheight=\dimen135
-\adjbox@pdepth=\dimen136
-\adjbox@ptotalheight=\dimen137
+\adjbox@Width=\dimen134
+\adjbox@Height=\dimen135
+\adjbox@Depth=\dimen136
+\adjbox@Totalheight=\dimen137
+\adjbox@pwidth=\dimen138
+\adjbox@pheight=\dimen139
+\adjbox@pdepth=\dimen140
+\adjbox@ptotalheight=\dimen141
 
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ifoddpage\ifoddpag
 e.sty"
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count113
+\c@checkoddpage=\count121
 LaTeX Info: Redefining \checkoddpage on input line 45.
 )
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/varwidth\varwidth.
 sty"
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box35
-\sift@deathcycles=\count114
-\@vwid@loff=\dimen138
-\@vwid@roff=\dimen139
-)) (assignment1.aux)
-\openout1 = `assignment1.aux'.
+\@vwid@box=\box37
+\sift@deathcycles=\count122
+\@vwid@loff=\dimen142
+\@vwid@roff=\dimen143
+)) (midterm_report.aux)
+\openout1 = `midterm_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
 
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/context/base\supp-pdf.mk
 ii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count115
-\scratchdimen=\dimen140
-\scratchbox=\box36
-\nofMPsegments=\count116
-\nofMParguments=\count117
-\everyMPshowfont=\toks30
-\MPscratchCnt=\count118
-\MPscratchDim=\dimen141
-\MPnumerator=\count119
-\makeMPintoPDFobject=\count120
-\everyMPtoPDFconversion=\toks31
+\scratchcounter=\count123
+\scratchdimen=\dimen144
+\scratchbox=\box38
+\nofMPsegments=\count124
+\nofMParguments=\count125
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count126
+\MPscratchDim=\dimen145
+\MPnumerator=\count127
+\makeMPintoPDFobject=\count128
+\everyMPtoPDFconversion=\toks34
 )
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-
 base.sty"
@@ -383,29 +431,25 @@ G,.JBIG2,.JB2,.eps]
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+\c@lstlisting=\count129
 <paper_source/fig.png, id=1, 639.13782pt x 563.10374pt>
 File: paper_source/fig.png Graphic file (type png)
 <use paper_source/fig.png>
-Package pdftex.def Info: paper_source/fig.png  used on input line 18.
+Package pdftex.def Info: paper_source/fig.png  used on input line 57.
 (pdftex.def)             Requested size: 322.50346pt x 284.13745pt.
 [1
 
 {C:/Users/evanb/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 Package epstopdf Info: Source file: <results_1/output.eps>
-(epstopdf)                    date: 2019-10-27 14:18:47
-(epstopdf)                    size: 37144 bytes
+(epstopdf)                    date: 2019-10-27 14:28:08
+(epstopdf)                    size: 37318 bytes
 (epstopdf)             Output file: <results_1/output-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-10-27 14:18:40
-(epstopdf)                    size: 24771 bytes
+(epstopdf)                    date: 2019-10-27 15:18:07
+(epstopdf)                    size: 24709 bytes
 (epstopdf)             Command: <epstopdf --outfile=results_1/output-eps-conver
 ted-to.pdf results_1/output.eps>
-(epstopdf)             \includegraphics on input line 24.
-runsystem(epstopdf --outfile=results_1/output-eps-converted-to.pdf results_1/ou
-tput.eps)...executed (allowed).
-
-Package epstopdf Info: Result file: <results_1/output-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-10-27 14:18:59
-(epstopdf)                    size: 24771 bytes.
+(epstopdf)             \includegraphics on input line 63.
+Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./results_1/output-eps-converted-to.pdf): PD
@@ -414,27 +458,64 @@ F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 File: results_1/output-eps-converted-to.pdf Graphic file (type pdf)
 <use results_1/output-eps-converted-to.pdf>
 Package pdftex.def Info: results_1/output-eps-converted-to.pdf  used on input l
-ine 24.
+ine 63.
 (pdftex.def)             Requested size: 322.50346pt x 322.54443pt.
 [2 <./paper_source/fig.png>] [3 <./results_1/output-eps-converted-to.pdf>]
+("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.
+sty"
+File: lstlang1.sty 2019/09/10 1.8c listings language file
+) (main.py
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 3.
+
+("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 3.
+
 [4
 
-] (assignment1.aux) ) 
+]
+Overfull \hbox (225.60255pt too wide) in paragraph at lines 50--51
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (124.80153pt too wide) in paragraph at lines 57--59
+[][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (160.8019pt too wide) in paragraph at lines 60--61
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (96.00124pt too wide) in paragraph at lines 66--67
+[][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+) [5] (midterm_report.aux) ) 
 Here is how much of TeX's memory you used:
- 4503 strings out of 492946
- 68480 string characters out of 3126266
- 145512 words of memory out of 3000000
- 8323 multiletter control sequences out of 15000+200000
- 6207 words of font info for 23 fonts, out of 3000000 for 9000
+ 6512 strings out of 492946
+ 95345 string characters out of 3126266
+ 377161 words of memory out of 3000000
+ 10295 multiletter control sequences out of 15000+200000
+ 7121 words of font info for 26 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,6n,37p,293b,268s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/evanb/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmbx12.pfb><C:/Users/evanb/AppData/Local/Programs/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/evanb/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on assignment1.pdf (4 pages, 233243 bytes).
+ 41i,6n,74p,296b,1936s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/evanb/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/evanb/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/evanb/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/evan
+b/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
+C:/Users/evanb/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/t1x
+btt.pfb><C:/Users/evanb/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/tx
+fonts/t1xtt.pfb>
+Output written on midterm_report.pdf (5 pages, 258213 bytes).
 PDF statistics:
- 61 PDF objects out of 1000 (max. 8388607)
+ 76 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
