@@ -18,7 +18,7 @@ else:
 class MidtermModel:
     def __init__(self, weight_decay = None):
         self.model_name = "model"
-        self.model = keras.models.Model(None, None)
+        self.model = keras.models.Model()
         self.initial_learning_rate = 0.1
         self.weight_decay = weight_decay
 
@@ -41,7 +41,7 @@ class MidtermModel:
                 keras.callbacks.LearningRateScheduler(
                     self.learning_rate_schedule,
                     verbose = 0),
-                keras.callbacks.ModelCheckpoint("{}-{}-weights.h5".format(data_name),
+                keras.callbacks.ModelCheckpoint("{}-weights.h5".format(run_name),
                     monitor="acc",
                     save_best_only=True,
                     verbose=1),
@@ -92,41 +92,71 @@ class MiniInceptionV3(MidtermModel):
 
         self.model = keras.models.Model(input_layer, x, name='inception_v3')
 
-    def conv_module(self, x, filters, kernel_size, padding='same', strides=(1, 1)):
+    def conv_module(self, input_layer, filters, kernel_size, padding='same', strides=(1, 1)):
         x = keras.layers.Conv2D(
             filters,
             kernel_size = kernel_size,
             strides=strides,
             padding=padding,
-            use_bias=False)(x)
+            use_bias=False)(input_layer)
         if self.use_batch_norm:
             x = keras.layers.BatchNormalization(axis=BATCHNORM_AXIS, scale=False)(x)
         x = keras.layers.Activation('relu')(x)
         return x
 
-    def inception_module(self, x, filters_1, filters_3):
-        conv_module1 = self.conv_module(x, filters = filters_1, kernel_size = (1, 1), strides = (1, 1))
-        conv_module3 = self.conv_module(x, filters = filters_3, kernel_size = (3, 3), strides = (1, 1))
+    def inception_module(self, input_layer, filters_1, filters_3):
+        conv_module1 = self.conv_module(input_layer, filters = filters_1, kernel_size = (1, 1), strides = (1, 1))
+        conv_module3 = self.conv_module(input_layer, filters = filters_3, kernel_size = (3, 3), strides = (1, 1))
         
         return keras.layers.concatenate(
             [conv_module1,
             conv_module3],
             axis = CHANNEL_AXIS)
 
-    def downsample_module(self, x, filters):
-        max_pooling = keras.layers.MaxPooling2D(pool_size = (3,3), strides = (2,2), padding = 'same')(x)
-        conv_module3 = self.conv_module(x, filters, kernel_size = (3, 3), strides = (2,2))
+    def downsample_module(self, input_layer, filters):
+        max_pooling = keras.layers.MaxPooling2D(pool_size = (3,3), strides = (2,2), padding = 'same')(input_layer)
+        conv_module3 = self.conv_module(input_layer, filters, kernel_size = (3, 3), strides = (2,2))
 
         return keras.layers.concatenate(
             [conv_module3,
             max_pooling],
             axis = CHANNEL_AXIS)
 
+class LocalResponseNormalization(keras.layers.Layer):
+    def __init__(self, n=5, alpha=0.0005, beta=0.75, k=2, **kwargs):
+        self.n = n
+        self.alpha = alpha
+        self.beta = beta
+        self.k = k
+        super(LocalResponseNormalization, self).__init__(**kwargs)
+
+    def build(self, input_shape):
+        self.shape = input_shape
+        super(LocalResponseNormalization, self).build(input_shape)
+    
+    def call(self, x, mask=None):
+        if keras.backend.image_data_format() == 'channels_first':
+            _, f, r, c = self.shape
+        else:
+            _, r, c, f = self.shape
+        squared = keras.backend.square(x)
+        pooled = keras.backend.pool2d(squared, (self.n,self.n), strides = (1,1),
+            padding = "same", pool_mode = "avg")
+        summed = keras.backend.sum(pooled, axis=CHANNEL_AXIS, keepdims = True)
+        averaged = self.alpha * keras.backend.repeat_elements(summed, f, axis=CHANNEL_AXIS)
+        denom = keras.backend.pow(self.k + averaged, self.beta)
+        return x / denom
+
+    def get_output_shape_for(self, input_shape):
+        return input_shape
+
+
 class AlexNet(MidtermModel):
     def __init__(self, input_shape, num_labels=10):
         super(AlexNet, self).__init__()
         self.initial_learning_rate = 0.01
         self.model_name = "AlexNet"
+        '''
         input_layer = Input(shape = input_shape)
         x = Conv2D(96, kernel_size = (11, 11), strides = (4,4), padding = 'valid')(input_layer)
         x = Activation('relu')(x)
@@ -150,19 +180,34 @@ class AlexNet(MidtermModel):
         x = Activation('relu')(x)
         x = Dropout(DROPOUT_RATE)(x)
         x = Dense(num_labels, activation='softmax', name='predictions')(x)
+        '''
+        input_layer = Input(shape = input_shape)
+        x = self.small_module(input_layer, filters = 96)
+        x = self.small_module(x, filters = 256)
+        x = Flatten()(x)
+        x = Dense(384, activation = 'relu')(x)
+        x = Dense(192, activation = 'relu')(x)
+        x = Dense(num_labels, activation='softmax', name='predictions')(x)
 
         self.model = keras.models.Model(input_layer, x, name=self.model_name)
+
+    def small_module(self, input_layer, filters = 96):
+        # convolution 5x5 - > max-pool 2x2, local-response normalization
+        x = Conv2D(filters, kernel_size = (5, 5), padding = 'valid')(input_layer)
+        x = MaxPooling2D(pool_size = (3, 3), padding = "valid")(x)
+        x = LocalResponseNormalization()(x)
+        return x
 
 class MLP(MidtermModel):
     def __init__(self, input_shape, num_labels=10, num_hidden_layers = 1, num_hidden_units = 512):
         super(MLP, self).__init__()
         self.model_name = "MLP {}x{}".format(num_hidden_layers, num_hidden_units)
         input_layer = Input(shape = input_shape)
-        x = input_layer
+        x = Flatten()(input_layer)
         for hidden_layer in range(num_hidden_layers):
             x = Dense(num_hidden_units)(x)
             x = Activation("relu")(x)
         x = Dense(num_labels, activation = "softmax", name = "predictions")(x)
 
         self.model = keras.models.Model(input_layer, x, name=self.model_name)
-        
+    
