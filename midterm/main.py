@@ -50,7 +50,7 @@ def get_model(model_code):
             num_hidden_layers = 3
         )
         
-model_codes = sys.argv[1:]
+model_codes = [1, 2, 3, 4, 5]
 
 (X_train, y_train), (X_test, y_test) = cifar10.load_data()
 
