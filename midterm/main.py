@@ -4,9 +4,9 @@ from utils import *
 from math import ceil
 import sys
 
-BATCH_SIZE = 200
+BATCH_SIZE = 100
 NUM_SAMPLES = 50000
-NUM_EPOCHS = 100
+NUM_EPOCHS = 50
 STEPS_PER_EPOCH = ceil(NUM_SAMPLES / BATCH_SIZE)
 
 def get_model(model_code):
@@ -64,5 +64,5 @@ for model_code in model_codes:
         test_y = data_input[3]
         model = get_model(model_code)
         model.compile()
-        model.fit(*data_input, test_X, test_y, NUM_EPOCHS, job_name, BATCH_SIZE)
-        model.evaluate(X_test, y_test)
+        model.fit(*data_input, NUM_EPOCHS, job_name, BATCH_SIZE)
+        model.evaluate(test_X, test_y)
