@@ -3,15 +3,23 @@ import pandas as pd
 import os
 from math import ceil
 
+everything_in_dir = os.listdir(os.getcwd())
+folders_in_dir = filter(lambda f: os.path.isdir(f) and "output" in f, everything_in_dir)
+max_folder_num = 0
+for folder in folders_in_dir:
+    folder_num = folder[(folder.find("_") + 1):]
+    max_folder_num = max(int(folder_num), max_folder_num)
+OUTPUT_DIR = "output_{}".format(max_folder_num)
+
 def plot_results(steps_per_epoch):
     label_markers = ['true', 'random_labels', 'shuffled', 'random_pixels', 'gaussian']
 
     datasets = []
     for label in label_markers:
         label_data = pd.DataFrame()
-        for file_name in os.listdir(os.getcwd()):
+        for file_name in os.listdir(OUTPUT_DIR):
             if ".csv" in file_name and label in file_name:
-                path = os.path.join(os.getcwd(), file_name)
+                path = os.path.join(OUTPUT_DIR, file_name)
                 data = pd.read_csv(path)
                 label_data = label_data.append(data, sort = False)
         datasets.append(data)
@@ -75,8 +83,8 @@ def plot_results(steps_per_epoch):
     plt.xlim(0, 25)
     plt.ylim(0, 2.5)
     plt.tight_layout()
-    fig1.savefig("output.eps")
-    fig1.savefig("output.png")
+    fig1.savefig(os.path.join(OUTPUT_DIR, "output.eps"))
+    fig1.savefig(os.path.join(OUTPUT_DIR, "output.png"))
 
 # Need input data [training_step_num, average_loss] for each one.
 

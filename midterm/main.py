@@ -6,6 +6,7 @@ import sys
 
 BATCH_SIZE = 200
 NUM_SAMPLES = 50000
+NUM_EPOCHS = 100
 STEPS_PER_EPOCH = ceil(NUM_SAMPLES / BATCH_SIZE)
 
 def get_model(model_code):
@@ -57,11 +58,10 @@ gaussian = [create_gaussian_noise(X_train), y_train]
 DATA_INPUTS = [true_inputs, random_labels, shuffled_pixels, random_pixels, gaussian]
 
 for model_code in model_codes:
-    for job_name, step_count, data_input in zip(CORRUPTION_TYPE, NUM_STEPS, DATA_INPUTS):
+    for job_name, data_input in zip(CORRUPTION_TYPE, DATA_INPUTS):
         X = data_input[0]
         y = data_input[1]
-        num_epochs = ceil(step_count / STEPS_PER_EPOCH)
         model = get_model(model_code)
         model.compile()
-        model.fit(*data_input, X_test, y_test, num_epochs, job_name, BATCH_SIZE)
+        model.fit(*data_input, X_test, y_test, NUM_EPOCHS, job_name, BATCH_SIZE)
         model.evaluate(X_test, y_test)

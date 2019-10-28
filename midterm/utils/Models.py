@@ -13,6 +13,8 @@ for folder in folders_in_dir:
     folder_num = folder[(folder.find("_") + 1):]
     max_folder_num = max(int(folder_num), max_folder_num)
 OUTPUT_DIR = "output_{}".format(max_folder_num + 1)
+if not os.path.exists(OUTPUT_DIR):
+    os.mkdir(OUTPUT_DIR)
 
 if keras.backend.image_data_format() == 'channels_first':
     CHANNEL_AXIS = 1
