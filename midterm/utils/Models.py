@@ -89,10 +89,12 @@ class MidtermModel:
         self.model.evaluate(X_test, y_test, verbose = 1)
 
     def learning_rate_schedule(self, epoch_num):
-        return self.initial_learning_rate*(RATE_DECAY_FACTOR_PER_EPOCH)**(epoch_num)
+        return self.initial_learning_rate*(RATE_DECAY_FACTOR_PER_EPOCH)
+      **(epoch_num)
 
 class MiniInceptionV3(MidtermModel):
-    def __init__(self, input_shape, num_labels=10, use_batch_norm = True):
+    def __init__(self, input_shape, num_labels=10, 
+                 use_batch_norm = True):
         super(MiniInceptionV3, self).__init__()
         self.initial_learning_rate = 0.1
         self.model_name = "MiniInceptionV3"
@@ -100,7 +102,8 @@ class MiniInceptionV3(MidtermModel):
             self.model_name += "_without_BatchNorm"
         self.use_batch_norm = use_batch_norm
         input_layer = keras.layers.Input(shape = input_shape)
-        x = self.conv_module(input_layer, 96, kernel_size = (3,3), 
+        x = self.conv_module(input_layer, 96, 
+                             kernel_size = (3,3), 
                              strides = (1,1))
         x = self.inception_module(x, 32, 32)
         x = self.inception_module(x, 32, 48)
@@ -150,9 +153,9 @@ class MiniInceptionV3(MidtermModel):
             axis = CHANNEL_AXIS)
 
     def downsample_module(self, input_layer, filters):
-        max_pooling = keras.layers.MaxPooling2D(pool_size = (3,3), 
-                                                strides = (2,2), 
-                                                padding = 'same')(input_layer)
+        max_pooling=keras.layers.MaxPooling2D(pool_size = (3,3), 
+                                              strides = (2,2), 
+                                              padding = 'same')(input_layer)
         conv_module3 = self.conv_module(input_layer, filters, 
                                         kernel_size = (3, 3), 
                                         strides = (2,2))
@@ -185,9 +188,9 @@ class LocalResponseNormalization(keras.layers.Layer):
             padding = "same", pool_mode = "avg")
         summed = keras.backend.sum(pooled, axis=CHANNEL_AXIS, 
                                    keepdims = True)
-        averaged = self.alpha * keras.backend.repeat_elements(summed, 
-                                                              f, 
-                                                              axis=CHANNEL_AXIS)
+        averaged=self.alpha * keras.backend.repeat_elements(summed, 
+                                                            f, 
+                                                            axis=CHANNEL_AXIS)
         denom = keras.backend.pow(self.k + averaged, self.beta)
         return x / denom
 
