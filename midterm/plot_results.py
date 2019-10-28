@@ -15,7 +15,8 @@ model_correspondence = {
 }
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", nargs="*", default = model_names)
-parser.add_argument("--num_epochs", nargs="?", default=100)
+parser.add_argument("-e", "--num_epochs", nargs="?", type=int, default=100)
+parser.add_argument("-b", "--batch_size", nargs="?", type=int, default=100)
 parser.add_argument("-i", "--iterate", action = "store_true")
 args = parser.parse_args()
 
@@ -124,9 +125,9 @@ def plot_results(steps_per_epoch, models = model_names, plot_name="output"):
 if __name__ == "__main__":
     if args.iterate:
         for model in args.model:
-            plot_results(ceil(50000/200), models = [model], plot_name = model)
+            plot_results(ceil(50000/args.batch_size), models = [model], plot_name = model)
     else:
-        plot_results(ceil(50000/200), models = args.model)
+        plot_results(ceil(50000/args.batch_size), models = args.model)
 # Need input data [training_step_num, average_loss] for each one.
 
 # Plot of learning curves
