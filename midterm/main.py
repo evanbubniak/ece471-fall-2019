@@ -49,7 +49,6 @@ y_train = preprocess_labels(y_train)
 y_test = preprocess_labels(y_test)
 
 CORRUPTION_TYPE = ["true_labels", "random_labels", "shuffled_pixels", "random_pixels", "gaussian"]
-NUM_STEPS = [10000, 10000, 10000, 10000, 15000]
 true_inputs = [X_train, y_train]
 random_labels = [X_train, randomize_labels(y_train.shape[0], 10)]
 shuffled_pixels = [shuffle_pixels(X_train), y_train]

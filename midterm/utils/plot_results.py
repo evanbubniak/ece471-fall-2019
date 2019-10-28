@@ -1,32 +1,65 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
+import argparse
 from math import ceil
+
+label_markers = ['true', 'random_labels', 'shuffled', 'random_pixels', 'gaussian']
+model_names = ["MiniInceptionV3", "MiniInceptionV3_without_BatchNorm", "AlexNet", "MLP_1x512", "MLP_3x512"]
+model_correspondence = {
+    "MiniInceptionV3": 1,
+    "MiniInceptionV3_without_BatchNorm":2,
+    "AlexNet":3,
+    "MLP_1x512":4,
+    "MLP_3x512":5
+}
+parser = argparse.ArgumentParser()
+parser.add_argument("--model", nargs="*", default = model_names)
+parser.add_argument("--num_epochs", nargs="?", default=100)
+args = parser.parse_args()
 
 everything_in_dir = os.listdir(os.getcwd())
 folders_in_dir = filter(lambda f: os.path.isdir(f) and "output" in f, everything_in_dir)
-max_folder_num = 0
+max_folder_num = 1
 for folder in folders_in_dir:
     folder_num = folder[(folder.find("_") + 1):]
     max_folder_num = max(int(folder_num), max_folder_num)
 OUTPUT_DIR = "output_{}".format(max_folder_num)
 
-def plot_results(steps_per_epoch):
-    label_markers = ['true', 'random_labels', 'shuffled', 'random_pixels', 'gaussian']
+def filter_dir_files(file_name):
+    conditionals = [".csv" in file_name]
+    if "MiniInceptionV3" in args.model and "MiniInceptionV3_without_BatchNorm" not in args.model and "BatchNorm" in file_name:
+        return False
+    else:
+        conditionals.append(any([model_name in file_name for model_name in args.model]))
+    return all(conditionals)
 
-    datasets = []
+all_files_in_dir = list(filter(filter_dir_files, os.listdir(OUTPUT_DIR)))
+
+def plot_results(steps_per_epoch):
+    all_data = []
+    # array of array of DFs
+
     for label in label_markers:
-        label_data = pd.DataFrame()
-        for file_name in os.listdir(OUTPUT_DIR):
-            if ".csv" in file_name and label in file_name:
+        data_by_model = []
+        for file_name in all_files_in_dir:
+            if label in file_name:
                 path = os.path.join(OUTPUT_DIR, file_name)
                 data = pd.read_csv(path)
-                label_data = label_data.append(data, sort = False)
-        datasets.append(data)
+                data = data[:args.num_epochs]
+                data_by_model.append(data)
+        all_data.append(data_by_model)
 
-    for dataset in datasets:
+    all_losses = []
+    for data_corruption in all_data:
+        avg_loss = pd.DataFrame({'average loss': [0] * len(data_corruption[0])})
+        avg_loss['epoch'] = avg_loss.index
+        for model_results in data_corruption:
+            avg_loss['average loss'] = avg_loss['average loss'] + model_results["loss"]
+        avg_loss['average loss'] = avg_loss['average loss'] / len(data_corruption)
+        all_losses.append(avg_loss)
+    for dataset in all_losses:
         dataset["thousand steps"] = ((dataset["epoch"] + 1)*steps_per_epoch)/1000
-
     true_label_format = [{'c': "blue", 'marker': 's', 'edgecolors': 'black'},
                         {'c': "blue"}]
 
@@ -48,19 +81,19 @@ def plot_results(steps_per_epoch):
     fig1 = plt.figure(figsize=(3,3))
     i = 0
     array_of_linmarks=[]
-    for dataset, data_format in zip(datasets, formats):
+    for dataset, data_format in zip(all_losses, formats):
         lin = None
         mark = None
         ax = plt.gca()
         z = 5 if i == 3 else 0
         if i != 3:
             mark = ax.scatter(dataset["thousand steps"].values[1:],
-                        dataset["loss"].values[1:],
+                        dataset["average loss"].values[1:],
                         s = 10,
                         zorder = 10,
                         **data_format[0])
         lin, = ax.plot(dataset["thousand steps"].values[1:],
-                dataset["loss"].values[1:],
+                dataset["average loss"].values[1:],
                 zorder = z,
                 **data_format[1]
             )
@@ -83,9 +116,14 @@ def plot_results(steps_per_epoch):
     plt.xlim(0, 25)
     plt.ylim(0, 2.5)
     plt.tight_layout()
+    fig1.savefig("output.eps")
+    fig1.savefig("output.png")
     fig1.savefig(os.path.join(OUTPUT_DIR, "output.eps"))
     fig1.savefig(os.path.join(OUTPUT_DIR, "output.png"))
 
+
+if __name__ == "__main__":
+    plot_results(ceil(50000/200))
 # Need input data [training_step_num, average_loss] for each one.
 
 # Plot of learning curves
