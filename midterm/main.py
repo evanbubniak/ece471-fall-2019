@@ -56,6 +56,9 @@ random_pixels = [randomize_pixels(X_train), y_train, randomize_pixels(X_test), y
 gaussian = [create_gaussian_noise(X_train), y_train, create_gaussian_noise(X_test), y_test]
 DATA_INPUTS = [true_inputs, random_labels, shuffled_pixels, random_pixels, gaussian]
 
+CORRUPTION_TYPE = [CORRUPTION_TYPE[4]]
+DATA_INPUTS = [DATA_INPUTS[4]]
+
 for model_code in model_codes:
     for job_name, data_input in zip(CORRUPTION_TYPE, DATA_INPUTS):
         X = data_input[0]
