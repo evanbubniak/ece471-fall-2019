@@ -171,31 +171,6 @@ class AlexNet(MidtermModel):
         super(AlexNet, self).__init__()
         self.initial_learning_rate = 0.01
         self.model_name = "AlexNet"
-        '''
-        input_layer = Input(shape = input_shape)
-        x = Conv2D(96, kernel_size = (11, 11), strides = (4,4), padding = 'valid')(input_layer)
-        x = Activation('relu')(x)
-        x = MaxPooling2D(pool_size = (3,3), strides = (2,2), padding = "valid")(x)
-        x = Conv2D(256, (5, 5), strides = (1,1), padding = 'valid')(x)
-        x = Activation('relu')(x)
-        x = MaxPooling2D(pool_size = (3,3), strides = (2,2), padding = "valid")
-        x = Conv2D(384, (3, 3), strides = (1,1), padding = 'same')(x)
-        x = Activation('relu')(x)
-        x = Conv2D(384, (3, 3), strides = (1,1), padding = 'same')(x)
-        x = Activation('relu')(x)
-        x = Conv2D(256, (3, 3), strides = (1,1), padding = 'same')(x)
-        x = Activation('relu')(x)
-        x = MaxPooling2D(pool_size = (3,3), strides = (2,2))
-
-        x = Flatten()(x)
-        x = Dense(4096)(x)
-        x = Activation('relu')(x)
-        x = Dropout(DROPOUT_RATE)(x)
-        x = Dense(4096)(x)
-        x = Activation('relu')(x)
-        x = Dropout(DROPOUT_RATE)(x)
-        x = Dense(num_labels, activation='softmax', name='predictions')(x)
-        '''
         input_layer = Input(shape = input_shape)
         x = self.small_module(input_layer, filters = 96)
         x = self.small_module(x, filters = 256)
@@ -207,7 +182,6 @@ class AlexNet(MidtermModel):
         self.model = keras.models.Model(input_layer, x, name=self.model_name)
 
     def small_module(self, input_layer, filters = 96):
-        # convolution 5x5 - > max-pool 2x2, local-response normalization
         x = Conv2D(filters, kernel_size = (5, 5), padding = 'valid')(input_layer)
         x = MaxPooling2D(pool_size = (3, 3), padding = "valid")(x)
         x = LocalResponseNormalization()(x)

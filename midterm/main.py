@@ -48,13 +48,19 @@ X_test = preprocess_input(X_test)
 y_train = preprocess_labels(y_train)
 y_test = preprocess_labels(y_test)
 
-CORRUPTION_TYPE = ["true_labels", "random_labels", "shuffled_pixels", "random_pixels", "gaussian"]
+CORRUPTION_TYPE = ["true_labels", "random_labels", 
+                   "shuffled_pixels", "random_pixels", "gaussian"]
 true_inputs = [X_train, y_train, X_test, y_test]
-random_labels = [X_train, randomize_labels(y_train.shape[0], 10), X_test, randomize_labels(y_test.shape[0], 10)]
-shuffled_pixels = [shuffle_pixels(X_train), y_train, shuffle_pixels(X_test), y_test]
-random_pixels = [randomize_pixels(X_train), y_train, randomize_pixels(X_test), y_test]
-gaussian = [create_gaussian_noise(X_train), y_train, create_gaussian_noise(X_test), y_test]
-DATA_INPUTS = [true_inputs, random_labels, shuffled_pixels, random_pixels, gaussian]
+random_labels = [X_train, randomize_labels(y_train.shape[0], 10), 
+                 X_test, randomize_labels(y_test.shape[0], 10)]
+shuffled_pixels = [shuffle_pixels(X_train), y_train, 
+                   shuffle_pixels(X_test), y_test]
+random_pixels = [randomize_pixels(X_train), y_train, 
+                 randomize_pixels(X_test), y_test]
+gaussian = [create_gaussian_noise(X_train), y_train, 
+            create_gaussian_noise(X_test), y_test]
+DATA_INPUTS = [true_inputs, random_labels, shuffled_pixels, 
+               random_pixels, gaussian]
 
 CORRUPTION_TYPE = [CORRUPTION_TYPE[4]]
 DATA_INPUTS = [DATA_INPUTS[4]]
