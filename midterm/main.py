@@ -4,9 +4,9 @@ from utils import *
 from math import ceil
 import sys
 
-BATCH_SIZE = 100
+BATCH_SIZE = 125
 NUM_SAMPLES = 50000
-NUM_EPOCHS = 50
+NUM_EPOCHS = 100
 STEPS_PER_EPOCH = ceil(NUM_SAMPLES / BATCH_SIZE)
 
 def get_model(model_code):
@@ -61,9 +61,6 @@ gaussian = [create_gaussian_noise(X_train), y_train,
             create_gaussian_noise(X_test), y_test]
 DATA_INPUTS = [true_inputs, random_labels, shuffled_pixels, 
                random_pixels, gaussian]
-
-CORRUPTION_TYPE = [CORRUPTION_TYPE[4]]
-DATA_INPUTS = [DATA_INPUTS[4]]
 
 for model_code in model_codes:
     for job_name, data_input in zip(CORRUPTION_TYPE, DATA_INPUTS):
