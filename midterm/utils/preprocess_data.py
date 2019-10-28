@@ -8,9 +8,6 @@ def crop(x_input):
     return x_input[:, 2:-2, 2:-2, :]
 
 def preprocess_input(x_input):
-    '''
-    Do not casually run this on a laptop. It will crash your whole computer and it will be your fault.
-    '''
     x_out = normalize(x_input)
     x_out = crop(x_out)
     x_out = per_image_standardization(x_out)
