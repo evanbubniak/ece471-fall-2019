@@ -1,20 +1,20 @@
 import numpy as np
+np.random.seed(31415)
 
 def randomize_labels(num_labels, num_unique_labels):
     random_labels = np.random.randint(low=0, high=num_unique_labels, size=num_labels)
     categorical_random_labels = np.eye(num_unique_labels)[random_labels]
     return categorical_random_labels
-    
-def shuffle_along_axis(a, axis):
-    idx = np.random.rand(*a.shape).argsort(axis=axis)
-    return np.take_along_axis(a,idx,axis=axis)
+
+def shuffle_image_pixels(image_data):
+    shuffled_image_pixels = image_data
+    np.random.shuffle(shuffled_image_pixels)
+    np.random.seed(31415)
+    return shuffled_image_pixels
 
 def shuffle_pixels(normalized_pixel_data):
-    normalized_pixel_data = normalized_pixel_data.numpy()
-    l = len(normalized_pixel_data.shape)
-    for i in range(1,l):
-        shuffled_pixel_data = shuffle_along_axis(normalized_pixel_data,i)
-
+    shuffled_pixel_data = normalized_pixel_data
+    np.apply_along_axis(shuffle_image_pixels, 0, shuffled_pixel_data)
     return shuffled_pixel_data
 
 def randomize_pixels(normalized_pixel_data):

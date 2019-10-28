@@ -49,18 +49,20 @@ y_train = preprocess_labels(y_train)
 y_test = preprocess_labels(y_test)
 
 CORRUPTION_TYPE = ["true_labels", "random_labels", "shuffled_pixels", "random_pixels", "gaussian"]
-true_inputs = [X_train, y_train]
-random_labels = [X_train, randomize_labels(y_train.shape[0], 10)]
-shuffled_pixels = [shuffle_pixels(X_train), y_train]
-random_pixels = [randomize_pixels(X_train), y_train]
-gaussian = [create_gaussian_noise(X_train), y_train]
+true_inputs = [X_train, y_train, X_test, y_test]
+random_labels = [X_train, randomize_labels(y_train.shape[0], 10), X_test, randomize_labels(y_test.shape[0], 10)]
+shuffled_pixels = [shuffle_pixels(X_train), y_train, shuffle_pixels(X_test), y_test]
+random_pixels = [randomize_pixels(X_train), y_train, randomize_pixels(X_test), y_test]
+gaussian = [create_gaussian_noise(X_train), y_train, create_gaussian_noise(X_test), y_test]
 DATA_INPUTS = [true_inputs, random_labels, shuffled_pixels, random_pixels, gaussian]
 
 for model_code in model_codes:
     for job_name, data_input in zip(CORRUPTION_TYPE, DATA_INPUTS):
         X = data_input[0]
         y = data_input[1]
+        test_X = data_input[2]
+        test_y = data_input[3]
         model = get_model(model_code)
         model.compile()
-        model.fit(*data_input, X_test, y_test, NUM_EPOCHS, job_name, BATCH_SIZE)
+        model.fit(*data_input, test_X, test_y, NUM_EPOCHS, job_name, BATCH_SIZE)
         model.evaluate(X_test, y_test)

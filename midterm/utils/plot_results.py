@@ -16,29 +16,30 @@ model_correspondence = {
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", nargs="*", default = model_names)
 parser.add_argument("--num_epochs", nargs="?", default=100)
+parser.add_argument("-i", "--iterate", action = "store_true")
 args = parser.parse_args()
 
-everything_in_dir = os.listdir(os.getcwd())
-folders_in_dir = filter(lambda f: os.path.isdir(f) and "output" in f, everything_in_dir)
-max_folder_num = 1
-for folder in folders_in_dir:
-    folder_num = folder[(folder.find("_") + 1):]
-    max_folder_num = max(int(folder_num), max_folder_num)
-OUTPUT_DIR = "output_{}".format(max_folder_num)
+def plot_results(steps_per_epoch, models = model_names, plot_name="output"):
+    def filter_dir_files(file_name):
+        conditionals = [".csv" in file_name]
+        if "MiniInceptionV3" in models and "MiniInceptionV3_without_BatchNorm" not in models and "BatchNorm" in file_name:
+            return False
+        else:
+            conditionals.append(any([model_name in file_name for model_name in models]))
+        return all(conditionals)
 
-def filter_dir_files(file_name):
-    conditionals = [".csv" in file_name]
-    if "MiniInceptionV3" in args.model and "MiniInceptionV3_without_BatchNorm" not in args.model and "BatchNorm" in file_name:
-        return False
-    else:
-        conditionals.append(any([model_name in file_name for model_name in args.model]))
-    return all(conditionals)
-
-all_files_in_dir = list(filter(filter_dir_files, os.listdir(OUTPUT_DIR)))
-
-def plot_results(steps_per_epoch):
     all_data = []
     # array of array of DFs
+
+    everything_in_dir = os.listdir(os.getcwd())
+    folders_in_dir = filter(lambda f: os.path.isdir(f) and "output" in f, everything_in_dir)
+    max_folder_num = 1
+    for folder in folders_in_dir:
+        folder_num = folder[(folder.find("_") + 1):]
+        max_folder_num = max(int(folder_num), max_folder_num)
+    OUTPUT_DIR = "output_{}".format(max_folder_num)
+
+    all_files_in_dir = list(filter(filter_dir_files, os.listdir(OUTPUT_DIR)))
 
     for label in label_markers:
         data_by_model = []
@@ -116,14 +117,16 @@ def plot_results(steps_per_epoch):
     plt.xlim(0, 25)
     plt.ylim(0, 2.5)
     plt.tight_layout()
-    fig1.savefig("output.eps")
-    fig1.savefig("output.png")
-    fig1.savefig(os.path.join(OUTPUT_DIR, "output.eps"))
-    fig1.savefig(os.path.join(OUTPUT_DIR, "output.png"))
+    fig1.savefig(os.path.join(OUTPUT_DIR, "{}.eps".format(plot_name)))
+    fig1.savefig(os.path.join(OUTPUT_DIR, "{}.png".format(plot_name)))
 
 
 if __name__ == "__main__":
-    plot_results(ceil(50000/200))
+    if args.iterate:
+        for model in args.model:
+            plot_results(ceil(50000/200), models = [model], plot_name = model)
+    else:
+        plot_results(ceil(50000/200), models = args.model)
 # Need input data [training_step_num, average_loss] for each one.
 
 # Plot of learning curves
