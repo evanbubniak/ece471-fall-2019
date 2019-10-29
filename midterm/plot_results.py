@@ -51,7 +51,7 @@ args = parser.parse_args()
 OUTPUT_DIR = "output_{}".format(args.output_num)
 
 def plot_results(steps_per_epoch, models = model_names, 
-                 plot_name="output"):
+                 plot_name="All_Models_Averaged"):
     def filter_dir_files(file_name):
         conditionals = [".csv" in file_name]
         if ("MiniInceptionV3" in models and
@@ -119,7 +119,7 @@ def plot_results(steps_per_epoch, models = model_names,
     legend_names = ['true labels', 'random labels', 
                     'shuffled pixels', 'random pixels', 'gaussian']
     
-    fig1 = plt.figure(figsize=(3,2.5))
+    fig1 = plt.figure(figsize=(3,3))
     i = 0
     array_of_linmarks=[]
     for dataset, data_format in zip(all_losses, formats):
@@ -147,7 +147,8 @@ def plot_results(steps_per_epoch, models = model_names,
                    top = True, right = True)
     leg = ax.legend(array_of_linmarks, legend_names, 
                     scatterpoints=2, framealpha = 1, 
-                    scatteryoffsets=[0.5])
+                    scatteryoffsets=[0.5],
+					loc = 'upper right')
     leg.set_zorder(20)
     leg.get_frame().set_facecolor('w')
     ax.set_xticks([0, 5, 10, 15, 20, 25])
@@ -157,6 +158,7 @@ def plot_results(steps_per_epoch, models = model_names,
 
     plt.xlabel("thousand steps")
     plt.ylabel("average_loss")
+    plt.title(plot_name)
     plt.xlim(0, 25)
     plt.ylim(0, 2.5)
     plt.tight_layout()

@@ -72,5 +72,6 @@ for model_code in args.model_num:
         test_y = inputs[corruption_type][3]
         model = get_model(model_code)
         model.compile()
-        model.fit(*inputs[corruption_type], NUM_EPOCHS, corruption_type, BATCH_SIZE)
+        model.fit(*inputs[corruption_type],
+            NUM_EPOCHS, corruption_type, BATCH_SIZE)
         model.evaluate(test_X, test_y)

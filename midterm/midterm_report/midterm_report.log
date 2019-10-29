@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.2.13)  28 OCT 2019 22:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.2.13)  28 OCT 2019 23:39
 entering extended mode
 **./midterm_report.tex
 (midterm_report.tex
@@ -438,50 +438,55 @@ File: fig.png Graphic file (type png)
 Package pdftex.def Info: fig.png  used on input line 63.
 (pdftex.def)             Requested size: 172.00249pt x 159.14749pt.
 Package epstopdf Info: Source file: <C:/Users/evanb/Documents/deeplearning/midt
-erm/output_2/MiniInceptionV3.eps>
-(epstopdf)                    date: 2019-10-28 21:37:22
-(epstopdf)                    size: 34515 bytes
+erm/output_5/MiniInceptionV3.eps>
+(epstopdf)                    date: 2019-10-28 23:39:25
+(epstopdf)                    size: 42148 bytes
 (epstopdf)             Output file: <C:/Users/evanb/Documents/deeplearning/midt
-erm/output_2/MiniInceptionV3-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-10-28 21:37:31
-(epstopdf)                    size: 23978 bytes
+erm/output_5/MiniInceptionV3-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=C:/Users/evanb/Documents/de
-eplearning/midterm/output_2/MiniInceptionV3-eps-converted-to.pdf C:/Users/evanb
-/Documents/deeplearning/midterm/output_2/MiniInceptionV3.eps>
+eplearning/midterm/output_5/MiniInceptionV3-eps-converted-to.pdf C:/Users/evanb
+/Documents/deeplearning/midterm/output_5/MiniInceptionV3.eps>
 (epstopdf)             \includegraphics on input line 65.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=C:/Users/evanb/Documents/deeplearning/midterm/outp
+ut_5/MiniInceptionV3-eps-converted-to.pdf C:/Users/evanb/Documents/deeplearning
+/midterm/output_5/MiniInceptionV3.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <C:/Users/evanb/Documents/deeplearning/midt
+erm/output_5/MiniInceptionV3-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-10-28 23:39:49
+(epstopdf)                    size: 31748 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file C:/Users/evanb/Documents/deeplearning/midter
-m/output_2/MiniInceptionV3-eps-converted-to.pdf): PDF inclusion: found PDF vers
+m/output_5/MiniInceptionV3-eps-converted-to.pdf): PDF inclusion: found PDF vers
 ion <1.7>, but at most version <1.5> allowed
-<C:/Users/evanb/Documents/deeplearning/midterm/output_2/MiniInceptionV3-eps-con
-verted-to.pdf, id=3, 216.81pt x 180.675pt>
-File: C:/Users/evanb/Documents/deeplearning/midterm/output_2/MiniInceptionV3-ep
+<C:/Users/evanb/Documents/deeplearning/midterm/output_5/MiniInceptionV3-eps-con
+verted-to.pdf, id=3, 216.81pt x 216.81pt>
+File: C:/Users/evanb/Documents/deeplearning/midterm/output_5/MiniInceptionV3-ep
 s-converted-to.pdf Graphic file (type pdf)
-<use C:/Users/evanb/Documents/deeplearning/midterm/output_2/MiniInceptionV3-eps
+<use C:/Users/evanb/Documents/deeplearning/midterm/output_5/MiniInceptionV3-eps
 -converted-to.pdf>
-Package pdftex.def Info: C:/Users/evanb/Documents/deeplearning/midterm/output_2
+Package pdftex.def Info: C:/Users/evanb/Documents/deeplearning/midterm/output_5
 /MiniInceptionV3-eps-converted-to.pdf  used on input line 65.
-(pdftex.def)             Requested size: 188.12701pt x 156.7807pt.
+(pdftex.def)             Requested size: 188.12701pt x 188.13686pt.
 [1
 
 {C:/Users/evanb/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2 <./fig.p
-ng> <C:/Users/evanb/Documents/deeplearning/midterm/output_2/MiniInceptionV3-eps
+ng> <C:/Users/evanb/Documents/deeplearning/midterm/output_5/MiniInceptionV3-eps
 -converted-to.pdf>]
 Package epstopdf Info: Source file: <C:/Users/evanb/Documents/deeplearning/midt
 erm/output_2/MiniInceptionV3_without_BatchNorm.eps>
-(epstopdf)                    date: 2019-10-28 02:18:28
-(epstopdf)                    size: 35332 bytes
+(epstopdf)                    date: 2019-10-28 23:15:33
+(epstopdf)                    size: 38430 bytes
 (epstopdf)             Output file: <C:/Users/evanb/Documents/deeplearning/midt
 erm/output_2/MiniInceptionV3_without_BatchNorm-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-10-28 21:47:43
-(epstopdf)                    size: 24429 bytes
+(epstopdf)                    date: 2019-10-28 23:15:47
+(epstopdf)                    size: 26118 bytes
 (epstopdf)             Command: <epstopdf --outfile=C:/Users/evanb/Documents/de
 eplearning/midterm/output_2/MiniInceptionV3_without_BatchNorm-eps-converted-to.
 pdf C:/Users/evanb/Documents/deeplearning/midterm/output_2/MiniInceptionV3_with
 out_BatchNorm.eps>
-(epstopdf)             \includegraphics on input line 83.
+(epstopdf)             \includegraphics on input line 86.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -489,27 +494,28 @@ pdfTeX warning: pdflatex.exe (file C:/Users/evanb/Documents/deeplearning/midter
 m/output_2/MiniInceptionV3_without_BatchNorm-eps-converted-to.pdf): PDF inclusi
 on: found PDF version <1.7>, but at most version <1.5> allowed
 <C:/Users/evanb/Documents/deeplearning/midterm/output_2/MiniInceptionV3_without
-_BatchNorm-eps-converted-to.pdf, id=46, 216.81pt x 216.81pt>
+_BatchNorm-eps-converted-to.pdf, id=51, 216.81pt x 216.81pt>
 File: C:/Users/evanb/Documents/deeplearning/midterm/output_2/MiniInceptionV3_wi
 thout_BatchNorm-eps-converted-to.pdf Graphic file (type pdf)
 <use C:/Users/evanb/Documents/deeplearning/midterm/output_2/MiniInceptionV3_wit
 hout_BatchNorm-eps-converted-to.pdf>
 Package pdftex.def Info: C:/Users/evanb/Documents/deeplearning/midterm/output_2
-/MiniInceptionV3_without_BatchNorm-eps-converted-to.pdf  used on input line 83.
+/MiniInceptionV3_without_BatchNorm-eps-converted-to.pdf  used on input line 86.
 
 (pdftex.def)             Requested size: 193.50076pt x 193.50945pt.
+[3]
 Package epstopdf Info: Source file: <C:/Users/evanb/Documents/deeplearning/midt
 erm/output_2/AlexNet.eps>
-(epstopdf)                    date: 2019-10-28 02:18:29
-(epstopdf)                    size: 35316 bytes
+(epstopdf)                    date: 2019-10-28 23:15:34
+(epstopdf)                    size: 35304 bytes
 (epstopdf)             Output file: <C:/Users/evanb/Documents/deeplearning/midt
 erm/output_2/AlexNet-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-10-28 21:47:44
-(epstopdf)                    size: 24949 bytes
+(epstopdf)                    date: 2019-10-28 23:15:48
+(epstopdf)                    size: 24616 bytes
 (epstopdf)             Command: <epstopdf --outfile=C:/Users/evanb/Documents/de
 eplearning/midterm/output_2/AlexNet-eps-converted-to.pdf C:/Users/evanb/Documen
 ts/deeplearning/midterm/output_2/AlexNet.eps>
-(epstopdf)             \includegraphics on input line 89.
+(epstopdf)             \includegraphics on input line 92.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -517,28 +523,26 @@ pdfTeX warning: pdflatex.exe (file C:/Users/evanb/Documents/deeplearning/midter
 m/output_2/AlexNet-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7
 >, but at most version <1.5> allowed
 <C:/Users/evanb/Documents/deeplearning/midterm/output_2/AlexNet-eps-converted-t
-o.pdf, id=47, 216.81pt x 216.81pt>
+o.pdf, id=56, 216.81pt x 216.81pt>
 File: C:/Users/evanb/Documents/deeplearning/midterm/output_2/AlexNet-eps-conver
 ted-to.pdf Graphic file (type pdf)
 <use C:/Users/evanb/Documents/deeplearning/midterm/output_2/AlexNet-eps-convert
 ed-to.pdf>
 Package pdftex.def Info: C:/Users/evanb/Documents/deeplearning/midterm/output_2
-/AlexNet-eps-converted-to.pdf  used on input line 89.
+/AlexNet-eps-converted-to.pdf  used on input line 92.
 (pdftex.def)             Requested size: 193.50076pt x 193.50945pt.
-[3 <C:/Users/evanb/Documents/deeplearning/midterm/output_2/MiniInceptionV3_with
-out_BatchNorm-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <C:/Users/evanb/Documents/deeplearning/midt
 erm/output_2/MLP_1x512.eps>
-(epstopdf)                    date: 2019-10-28 02:18:29
-(epstopdf)                    size: 31113 bytes
+(epstopdf)                    date: 2019-10-28 23:15:34
+(epstopdf)                    size: 31617 bytes
 (epstopdf)             Output file: <C:/Users/evanb/Documents/deeplearning/midt
 erm/output_2/MLP_1x512-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-10-28 21:47:45
-(epstopdf)                    size: 20183 bytes
+(epstopdf)                    date: 2019-10-28 23:15:48
+(epstopdf)                    size: 20170 bytes
 (epstopdf)             Command: <epstopdf --outfile=C:/Users/evanb/Documents/de
 eplearning/midterm/output_2/MLP_1x512-eps-converted-to.pdf C:/Users/evanb/Docum
 ents/deeplearning/midterm/output_2/MLP_1x512.eps>
-(epstopdf)             \includegraphics on input line 95.
+(epstopdf)             \includegraphics on input line 98.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -546,26 +550,29 @@ pdfTeX warning: pdflatex.exe (file C:/Users/evanb/Documents/deeplearning/midter
 m/output_2/MLP_1x512-eps-converted-to.pdf): PDF inclusion: found PDF version <1
 .7>, but at most version <1.5> allowed
 <C:/Users/evanb/Documents/deeplearning/midterm/output_2/MLP_1x512-eps-converted
--to.pdf, id=82, 216.81pt x 216.81pt>
+-to.pdf, id=57, 216.81pt x 216.81pt>
 File: C:/Users/evanb/Documents/deeplearning/midterm/output_2/MLP_1x512-eps-conv
 erted-to.pdf Graphic file (type pdf)
 <use C:/Users/evanb/Documents/deeplearning/midterm/output_2/MLP_1x512-eps-conve
 rted-to.pdf>
 Package pdftex.def Info: C:/Users/evanb/Documents/deeplearning/midterm/output_2
-/MLP_1x512-eps-converted-to.pdf  used on input line 95.
+/MLP_1x512-eps-converted-to.pdf  used on input line 98.
 (pdftex.def)             Requested size: 193.50076pt x 193.50945pt.
+[4 <C:/Users/evanb/Documents/deeplearning/midterm/output_2/MiniInceptionV3_with
+out_BatchNorm-eps-converted-to.pdf> <C:/Users/evanb/Documents/deeplearning/midt
+erm/output_2/AlexNet-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <C:/Users/evanb/Documents/deeplearning/midt
 erm/output_2/MLP_3x512.eps>
-(epstopdf)                    date: 2019-10-28 02:18:30
-(epstopdf)                    size: 35310 bytes
+(epstopdf)                    date: 2019-10-28 23:15:34
+(epstopdf)                    size: 36488 bytes
 (epstopdf)             Output file: <C:/Users/evanb/Documents/deeplearning/midt
 erm/output_2/MLP_3x512-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-10-28 21:47:46
-(epstopdf)                    size: 25251 bytes
+(epstopdf)                    date: 2019-10-28 23:15:49
+(epstopdf)                    size: 25557 bytes
 (epstopdf)             Command: <epstopdf --outfile=C:/Users/evanb/Documents/de
 eplearning/midterm/output_2/MLP_3x512-eps-converted-to.pdf C:/Users/evanb/Docum
 ents/deeplearning/midterm/output_2/MLP_3x512.eps>
-(epstopdf)             \includegraphics on input line 101.
+(epstopdf)             \includegraphics on input line 104.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -573,29 +580,26 @@ pdfTeX warning: pdflatex.exe (file C:/Users/evanb/Documents/deeplearning/midter
 m/output_2/MLP_3x512-eps-converted-to.pdf): PDF inclusion: found PDF version <1
 .7>, but at most version <1.5> allowed
 <C:/Users/evanb/Documents/deeplearning/midterm/output_2/MLP_3x512-eps-converted
--to.pdf, id=83, 216.81pt x 216.81pt>
+-to.pdf, id=131, 216.81pt x 216.81pt>
 File: C:/Users/evanb/Documents/deeplearning/midterm/output_2/MLP_3x512-eps-conv
 erted-to.pdf Graphic file (type pdf)
 <use C:/Users/evanb/Documents/deeplearning/midterm/output_2/MLP_3x512-eps-conve
 rted-to.pdf>
 Package pdftex.def Info: C:/Users/evanb/Documents/deeplearning/midterm/output_2
-/MLP_3x512-eps-converted-to.pdf  used on input line 101.
+/MLP_3x512-eps-converted-to.pdf  used on input line 104.
 (pdftex.def)             Requested size: 193.50076pt x 193.50945pt.
-[4 <C:/Users/evanb/Documents/deeplearning/midterm/output_2/AlexNet-eps-converte
-d-to.pdf> <C:/Users/evanb/Documents/deeplearning/midterm/output_2/MLP_1x512-eps
--converted-to.pdf>]
 Package epstopdf Info: Source file: <C:/Users/evanb/Documents/deeplearning/midt
 erm/output_2/output.eps>
-(epstopdf)                    date: 2019-10-28 21:28:33
-(epstopdf)                    size: 34518 bytes
+(epstopdf)                    date: 2019-10-28 22:40:00
+(epstopdf)                    size: 33669 bytes
 (epstopdf)             Output file: <C:/Users/evanb/Documents/deeplearning/midt
 erm/output_2/output-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-10-28 21:47:47
-(epstopdf)                    size: 24023 bytes
+(epstopdf)                    date: 2019-10-28 22:42:10
+(epstopdf)                    size: 23445 bytes
 (epstopdf)             Command: <epstopdf --outfile=C:/Users/evanb/Documents/de
 eplearning/midterm/output_2/output-eps-converted-to.pdf C:/Users/evanb/Document
 s/deeplearning/midterm/output_2/output.eps>
-(epstopdf)             \includegraphics on input line 107.
+(epstopdf)             \includegraphics on input line 110.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -603,17 +607,18 @@ pdfTeX warning: pdflatex.exe (file C:/Users/evanb/Documents/deeplearning/midter
 m/output_2/output-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>
 , but at most version <1.5> allowed
 <C:/Users/evanb/Documents/deeplearning/midterm/output_2/output-eps-converted-to
-.pdf, id=147, 216.81pt x 198.7425pt>
+.pdf, id=132, 216.81pt x 180.675pt>
 File: C:/Users/evanb/Documents/deeplearning/midterm/output_2/output-eps-convert
 ed-to.pdf Graphic file (type pdf)
 <use C:/Users/evanb/Documents/deeplearning/midterm/output_2/output-eps-converte
 d-to.pdf>
 Package pdftex.def Info: C:/Users/evanb/Documents/deeplearning/midterm/output_2
-/output-eps-converted-to.pdf  used on input line 107.
-(pdftex.def)             Requested size: 193.50076pt x 177.38367pt.
-[5 <C:/Users/evanb/Documents/deeplearning/midterm/output_2/MLP_3x512-eps-conver
-ted-to.pdf> <C:/Users/evanb/Documents/deeplearning/midterm/output_2/output-eps-
-converted-to.pdf>]
+/output-eps-converted-to.pdf  used on input line 110.
+(pdftex.def)             Requested size: 193.50076pt x 161.25787pt.
+[5 <C:/Users/evanb/Documents/deeplearning/midterm/output_2/MLP_1x512-eps-conver
+ted-to.pdf> <C:/Users/evanb/Documents/deeplearning/midterm/output_2/MLP_3x512-e
+ps-converted-to.pdf>] [6 <C:/Users/evanb/Documents/deeplearning/midterm/output_
+2/output-eps-converted-to.pdf>]
 ("C:\Users\evanb\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.
 sty"
 File: lstlang1.sty 2019/09/10 1.8c listings language file
@@ -630,26 +635,21 @@ Overfull \hbox (2.40028pt too wide) in paragraph at lines 13--14
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[6
+[7
 
 ]
 Overfull \hbox (24.0005pt too wide) in paragraph at lines 60--61
 [][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[7]
-Overfull \hbox (124.80153pt too wide) in paragraph at lines 75--76
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-) (C:/Users/evanb/Documents/deeplearning/midterm/utils/preprocess_data.py)
+[8]) (C:/Users/evanb/Documents/deeplearning/midterm/utils/preprocess_data.py)
 (C:/Users/evanb/Documents/deeplearning/midterm/utils/data_corruption.py
-[8]
+[9]
 Overfull \hbox (38.40065pt too wide) in paragraph at lines 8--9
 [][][][][][][][][][][][][][][] 
  []
 
-) (C:/Users/evanb/Documents/deeplearning/midterm/utils/Models.py [9] [10]
+) (C:/Users/evanb/Documents/deeplearning/midterm/utils/Models.py [10] [11]
 Overfull \hbox (45.60072pt too wide) in paragraph at lines 56--57
 [][][][][][][][][][][][][][][][][][] 
  []
@@ -659,7 +659,7 @@ Overfull \hbox (9.60036pt too wide) in paragraph at lines 64--65
 [][][][][][][][][][][] 
  []
 
-[11]
+[12]
 Overfull \hbox (52.8008pt too wide) in paragraph at lines 89--90
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
@@ -674,7 +674,7 @@ Overfull \hbox (74.40102pt too wide) in paragraph at lines 115--117
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[12] [13]
+[13] [14]
 Overfull \hbox (38.40065pt too wide) in paragraph at lines 159--160
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
@@ -689,12 +689,12 @@ Overfull \hbox (81.60109pt too wide) in paragraph at lines 181--182
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[14]
+[15]
 Overfull \hbox (74.40102pt too wide) in paragraph at lines 207--209
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[15]) (C:/Users/evanb/Documents/deeplearning/midterm/plot_results.py [16]
+[16]) (C:/Users/evanb/Documents/deeplearning/midterm/plot_results.py [17]
 Overfull \hbox (9.19984pt too wide) in paragraph at lines 31--32
 [][][][][][][][][][][][][][][][][][][][][][] 
  []
@@ -726,7 +726,7 @@ Overfull \hbox (1.99977pt too wide) in paragraph at lines 62--63
 [][][][][][][][][][][][][][][][][][] 
  []
 
-[17]
+[18]
 Overfull \hbox (30.80006pt too wide) in paragraph at lines 85--86
 [][][][][][][][][][][][][] 
  []
@@ -743,13 +743,13 @@ Overfull \hbox (23.59999pt too wide) in paragraph at lines 90--91
 ][][][][][][] 
  []
 
-
+[19]
 Overfull \hbox (1.99977pt too wide) in paragraph at lines 104--105
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][] 
  []
 
-[18]
+
 Overfull \hbox (52.40028pt too wide) in paragraph at lines 120--122
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][] 
@@ -765,49 +765,54 @@ Overfull \hbox (1.99977pt too wide) in paragraph at lines 136--137
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[19]
-Overfull \hbox (23.59999pt too wide) in paragraph at lines 163--164
+[20]
+Overfull \hbox (1.99977pt too wide) in paragraph at lines 151--152
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (23.59999pt too wide) in paragraph at lines 165--166
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (23.59999pt too wide) in paragraph at lines 164--165
+Overfull \hbox (23.59999pt too wide) in paragraph at lines 166--167
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (74.0005pt too wide) in paragraph at lines 165--166
+Overfull \hbox (74.0005pt too wide) in paragraph at lines 167--168
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (74.0005pt too wide) in paragraph at lines 166--168
+Overfull \hbox (74.0005pt too wide) in paragraph at lines 168--170
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-) [20] (midterm_report.aux) ) 
+[21]) [22] (midterm_report.aux) ) 
 Here is how much of TeX's memory you used:
- 7075 strings out of 492946
- 105678 string characters out of 3126266
- 382811 words of memory out of 3000000
- 10829 multiletter control sequences out of 15000+200000
+ 7080 strings out of 492946
+ 105769 string characters out of 3126266
+ 382841 words of memory out of 3000000
+ 10833 multiletter control sequences out of 15000+200000
  10799 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,9n,74p,750b,1940s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/evanb/AppData/Local/Programs/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/evanb/AppData/Local/Program
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/evanb/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/eva
-nb/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C
-:/Users/evanb/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmsy10.pfb><C:/Users/evanb/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmti12.pfb><C:/Users/evanb/AppData/Local/Programs/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/evanb/AppData/Local/Programs/MiK
-TeX 2.9/fonts/type1/public/txfonts/t1xbtt.pfb><C:/Users/evanb/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on midterm_report.pdf (20 pages, 453235 bytes).
+ 41i,9n,74p,750b,1938s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/evanb/AppData/Local/Programs/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/evanb/AppData/Local/Pro
+grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/evanb/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users
+/evanb/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pf
+b><C:/Users/evanb/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb><C:/Users/evanb/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmti12.pfb><C:/Users/evanb/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/evanb/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/txfonts/t1xbtt.pfb><C:/Users/evanb/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/t1xtt.pfb>
+Output written on midterm_report.pdf (22 pages, 462941 bytes).
 PDF statistics:
- 292 PDF objects out of 1000 (max. 8388607)
+ 320 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

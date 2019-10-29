@@ -9,15 +9,17 @@ def randomize_labels(num_labels, num_unique_labels):
     return categorical_random_labels
 
 def shuffle_image_pixels(image_data):
-    shuffled_image_pixels = np.copy(image_data)
-    np.random.shuffle(shuffled_image_pixels)
+    shape = image_data.shape
+    shuffled_image_pixels = image_data.reshape(shape[0]*shape[1],shape[2])
     np.random.seed(31415)
+    shuffled_image_pixels = np.apply_along_axis(np.random.permutation, 1, shuffled_image_pixels)
+    shuffled_image_pixels = shuffled_image_pixels.reshape(shape[0],shape[1],shape[2])
     return shuffled_image_pixels
 
 def shuffle_pixels(normalized_pixel_data):
     shuffled_pixel_data = np.copy(normalized_pixel_data)
-    np.apply_along_axis(shuffle_image_pixels, 1, 
-        shuffled_pixel_data)
+    for i in range(len(shuffled_pixel_data)):
+        shuffled_pixel_data[i] = shuffle_image_pixels(shuffled_pixel_data[i])
     return shuffled_pixel_data
 
 def randomize_pixels(normalized_pixel_data):
