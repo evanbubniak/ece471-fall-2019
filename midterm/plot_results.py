@@ -1,4 +1,5 @@
-""" Plot of learning curves
+"""
+Plot of learning curves
 true labels: blue, with blue square dots
 random labels - red, with red circular dots
 shuffled pixels: green, with green star 5-point star dots
@@ -23,35 +24,8 @@ model_correspondence = {
     "MLP_1x512":4,
     "MLP_3x512":5
 }
-parser = argparse.ArgumentParser()
-<<<<<<< HEAD
-parser.add_argument("--model", nargs="*", default = model_names)
-parser.add_argument("-e", "--num_epochs", nargs="?", type=int, default=100)
-parser.add_argument("-b", "--batch_size", nargs="?", type=int, default=100)
-=======
-parser.add_argument("--model", nargs="*", 
-                    default = model_names)
-parser.add_argument("--num_epochs", nargs="?", default=100)
->>>>>>> 6d18f437d9b90d32a2437018f452b765333adf22
-parser.add_argument("-i", "--iterate", action = "store_true")
-args = parser.parse_args()
 
-def plot_results(steps_per_epoch, models = model_names, 
-                 plot_name="output"):
-    def filter_dir_files(file_name):
-        conditionals = [".csv" in file_name]
-        if "MiniInceptionV3" in models and 
-        "MiniInceptionV3_without_BatchNorm" not in models and 
-        "BatchNorm" in file_name:
-            return False
-        else:
-            conditionals.append(any([model_name in file_name 
-                                     for model_name in models]))
-        return all(conditionals)
-
-    all_data = []
-    # array of array of DFs
-
+def get_max_folder_num():
     everything_in_dir = os.listdir(os.getcwd())
     folders_in_dir = filter(lambda f: os.path.isdir(f) and 
                             "output" in f, everything_in_dir)
@@ -59,7 +33,38 @@ def plot_results(steps_per_epoch, models = model_names,
     for folder in folders_in_dir:
         folder_num = folder[(folder.find("_") + 1):]
         max_folder_num = max(int(folder_num), max_folder_num)
-    OUTPUT_DIR = "output_{}".format(max_folder_num)
+    return max_folder_num
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--model", nargs="*", default = model_names)
+parser.add_argument("-e", "--num_epochs",
+    nargs="?", type=int, default=100)
+parser.add_argument("-b", "--batch_size",
+    nargs="?", type=int, default=100)
+parser.add_argument("--output_num", nargs = "?",
+    default = get_max_folder_num())
+
+parser.add_argument("-i", "--iterate", action = "store_true")
+args = parser.parse_args()
+
+OUTPUT_DIR = "output_{}".format(args.output_num)
+
+def plot_results(steps_per_epoch, models = model_names, 
+                 plot_name="output"):
+    def filter_dir_files(file_name):
+        conditionals = [".csv" in file_name]
+        if ("MiniInceptionV3" in models and
+            "MiniInceptionV3_without_BatchNorm" not in models and
+            "BatchNorm" in file_name):
+            return False
+        else:
+            conditionals.append(any([model_name in file_name 
+                for model_name in models]))
+        return all(conditionals)
+
+    all_data = []
+
 
     all_files_in_dir = list(filter(filter_dir_files, 
                                    os.listdir(OUTPUT_DIR)))
@@ -80,14 +85,14 @@ def plot_results(steps_per_epoch, models = model_names,
                                  [0] * len(data_corruption[0])})
         avg_loss['epoch'] = avg_loss.index
         for model_results in data_corruption:
-            avg_loss['average loss'] = 
-            avg_loss['average loss'] + model_results["loss"]
-        avg_loss['average loss'] = 
-        avg_loss['average loss'] / len(data_corruption)
+            avg_loss['average loss'] = avg_loss['average loss'] + \
+                model_results["loss"]
+        avg_loss['average loss'] = avg_loss['average loss'] / \
+            len(data_corruption)
         all_losses.append(avg_loss)
     for dataset in all_losses:
-        dataset["thousand steps"] = 
-        ((dataset["epoch"] + 1)*steps_per_epoch)/1000
+        dataset["thousand steps"] = \
+            ((dataset["epoch"] + 1)*steps_per_epoch)/1000
     true_label_format = [{'c': "blue", 'marker': 's', 
                           'edgecolors': 'black'},
                         {'c': "blue"}]
@@ -114,7 +119,7 @@ def plot_results(steps_per_epoch, models = model_names,
     legend_names = ['true labels', 'random labels', 
                     'shuffled pixels', 'random pixels', 'gaussian']
     
-    fig1 = plt.figure(figsize=(3,3))
+    fig1 = plt.figure(figsize=(3,2.5))
     i = 0
     array_of_linmarks=[]
     for dataset, data_format in zip(all_losses, formats):
@@ -125,7 +130,7 @@ def plot_results(steps_per_epoch, models = model_names,
         if i != 3:
             mark = ax.scatter(dataset["thousand steps"].values[1:],
                         dataset["average loss"].values[1:],
-                        s = 10,
+                        s = 15,
                         zorder = 10,
                         **data_format[0])
         lin, = ax.plot(dataset["thousand steps"].values[1:],
@@ -155,24 +160,19 @@ def plot_results(steps_per_epoch, models = model_names,
     plt.xlim(0, 25)
     plt.ylim(0, 2.5)
     plt.tight_layout()
+    print(os.path.join(OUTPUT_DIR, "{}.eps".format(plot_name)))
+    print(os.path.join(OUTPUT_DIR, "{}.png".format(plot_name)))
     fig1.savefig(os.path.join(OUTPUT_DIR, "{}.eps".format(plot_name)))
     fig1.savefig(os.path.join(OUTPUT_DIR, "{}.png".format(plot_name)))
-
 
 if __name__ == "__main__":
     if args.iterate:
         for model in args.model:
-<<<<<<< HEAD
-            plot_results(ceil(50000/args.batch_size), models = [model], plot_name = model)
+            plot_results(
+                ceil(50000/args.batch_size),
+                models = [model],
+                plot_name = model)
     else:
-        plot_results(ceil(50000/args.batch_size), models = args.model)
-# Need input data [training_step_num, average_loss] for each one.
-=======
-            plot_results(ceil(50000/200), 
-                         models = [model], 
-                         plot_name = model)
-    else:
-        plot_results(ceil(50000/200), models = args.model)
->>>>>>> 6d18f437d9b90d32a2437018f452b765333adf22
-
-
+        plot_results(
+            ceil(50000/args.batch_size),
+            models = args.model)
