@@ -24,15 +24,31 @@ model_correspondence = {
     "MLP_1x512":4,
     "MLP_3x512":5
 }
+
+def get_max_folder_num():
+    everything_in_dir = os.listdir(os.getcwd())
+    folders_in_dir = filter(lambda f: os.path.isdir(f) and 
+                            "output" in f, everything_in_dir)
+    max_folder_num = 1
+    for folder in folders_in_dir:
+        folder_num = folder[(folder.find("_") + 1):]
+        max_folder_num = max(int(folder_num), max_folder_num)
+    return max_folder_num
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", nargs="*", default = model_names)
 parser.add_argument("-e", "--num_epochs",
     nargs="?", type=int, default=100)
 parser.add_argument("-b", "--batch_size",
     nargs="?", type=int, default=100)
+parser.add_argument("--output_num", nargs = "?",
+    default = get_max_folder_num())
 
 parser.add_argument("-i", "--iterate", action = "store_true")
 args = parser.parse_args()
+
+OUTPUT_DIR = "output_{}".format(args.output_num)
 
 def plot_results(steps_per_epoch, models = model_names, 
                  plot_name="output"):
@@ -48,14 +64,7 @@ def plot_results(steps_per_epoch, models = model_names,
         return all(conditionals)
 
     all_data = []
-    everything_in_dir = os.listdir(os.getcwd())
-    folders_in_dir = filter(lambda f: os.path.isdir(f) and 
-                            "output" in f, everything_in_dir)
-    max_folder_num = 1
-    for folder in folders_in_dir:
-        folder_num = folder[(folder.find("_") + 1):]
-        max_folder_num = max(int(folder_num), max_folder_num)
-    OUTPUT_DIR = "output_{}".format(max_folder_num)
+
 
     all_files_in_dir = list(filter(filter_dir_files, 
                                    os.listdir(OUTPUT_DIR)))
@@ -110,7 +119,7 @@ def plot_results(steps_per_epoch, models = model_names,
     legend_names = ['true labels', 'random labels', 
                     'shuffled pixels', 'random pixels', 'gaussian']
     
-    fig1 = plt.figure(figsize=(3,3))
+    fig1 = plt.figure(figsize=(3,2.5))
     i = 0
     array_of_linmarks=[]
     for dataset, data_format in zip(all_losses, formats):
@@ -121,7 +130,7 @@ def plot_results(steps_per_epoch, models = model_names,
         if i != 3:
             mark = ax.scatter(dataset["thousand steps"].values[1:],
                         dataset["average loss"].values[1:],
-                        s = 10,
+                        s = 15,
                         zorder = 10,
                         **data_format[0])
         lin, = ax.plot(dataset["thousand steps"].values[1:],
@@ -151,6 +160,8 @@ def plot_results(steps_per_epoch, models = model_names,
     plt.xlim(0, 25)
     plt.ylim(0, 2.5)
     plt.tight_layout()
+    print(os.path.join(OUTPUT_DIR, "{}.eps".format(plot_name)))
+    print(os.path.join(OUTPUT_DIR, "{}.png".format(plot_name)))
     fig1.savefig(os.path.join(OUTPUT_DIR, "{}.eps".format(plot_name)))
     fig1.savefig(os.path.join(OUTPUT_DIR, "{}.png".format(plot_name)))
 

@@ -6,8 +6,10 @@ import sys
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-m', '--model_num', nargs = '*', default = [1, 2, 3, 4, 5])
-parser.add_argument('-d', '--data_corruption_types', nargs = '*', default = ["true_labels", "random_labels", 
+parser.add_argument('-m', '--model_num',
+    nargs = '*', default = [1, 2, 3, 4, 5])
+parser.add_argument('-d', '--data_corruption_types',
+    nargs = '*', default = ["true_labels", "random_labels", 
                    "shuffled_pixels", "random_pixels", "gaussian"])
 args = parser.parse_args()
 
@@ -70,5 +72,5 @@ for model_code in args.model_num:
         test_y = inputs[corruption_type][3]
         model = get_model(model_code)
         model.compile()
-        model.fit(*inputs[corruption_type], NUM_EPOCHS, job_name, BATCH_SIZE)
+        model.fit(*inputs[corruption_type], NUM_EPOCHS, corruption_type, BATCH_SIZE)
         model.evaluate(test_X, test_y)
