@@ -75,8 +75,11 @@ The experimental setup involved, in total, the training and analysis of 25 model
 
 The paper does not specify certain hyperparameters, specifically the number of epochs and batch size. This proved problematic as the interplay between these two variables affects the number of steps needed to converge. Furthermore, although five models are specified as part of the CIFAR-10 experimental set-up, it is not specified if only one model was used to generate Figure 1 in particular, or if multiple model results were averaged together.
 
-As a result, some difference in the shape of the graph is likely due to hyperparameter tuning; specifically, we use a batch size of 200 and run on 100 epochs. Because $\frac{\text{\# training steps}}{\text{epoch}} = \frac{\text{\# samples}}{\text{batch size}}$, we choose the batch size and epochs such that, for 50,000 samples, we will have 25,000 training steps in total for each model run (thus spanning the width of the x-tick limits), and 250 steps per epoch (thus yielding a desirable width between data points), since data points are only logged at the end of each epoch in our Keras callback. We expect that a larger batch size should lead to a faster convergence for an otherwise fixed number of epochs.
+As a result, some difference in the shape of the graph is likely due to hyperparameter tuning; specifically, we use a batch size of 125 and run on 100 epochs. Because $\frac{\text{\# training steps}}{\text{epoch}} = \frac{\text{\# samples}}{\text{batch size}}$, we choose the batch size and epochs such that, for 50,000 samples, we will have 25,000 training steps in total for each model run (thus spanning the width of the x-tick limits), and 400 steps per epoch (thus yielding a desirable width between data points), since data points are only logged at the end of each epoch in our Keras callback. We expect that a larger batch size should lead to a faster convergence for an otherwise fixed number of epochs. In earlier test runs (see \textit{Diverging Models} below) a batch size of 200 was used, which may have contributed to varying convergence times; the \verb|shuffle_pixels| function was also found to shuffle along the wrong axis, causing it to effectively randomize the location of images in the dataset rather than the data of the images themselves.
 
+Figure 2 is produced from the source code by running \verb|main.py| with options
+ \verb|-m MiniInceptionV3| and subsequently running \verb|plot_results.py| with options
+  \verb|--model InceptionV3 -e 100 -b 125|.
 \section{Diverging Models}
 
 In the course of the assignment, we went through many iterations of models and data corruption. This allowed us to identify how different models learned, and by comparing the results against Figure 1, we looked for errors in the data corruption subroutines. Owing to convergence rates much slower than we expect from Figure 1, we discarded these models from consideration for producing our plot.
@@ -119,19 +122,25 @@ In the course of the assignment, we went through many iterations of models and d
 For convenience of use, the \verb|main.py| and \verb|plot_results.py| scripts were augmented with command line argument parsing, giving strong user customization over which models to run on which data corruption, as well as being able to plot average losses for each data corruption type over several models. 
 
 \subsection{Main Loop}
+\verb|main.py|:
+
 \pythonexternal{C:/Users/evanb/Documents/deeplearning/midterm/main.py}
 
 \subsection{Data Preprocessing}
+\verb|utils/preprocess_data.py|:
 \pythonexternal{C:/Users/evanb/Documents/deeplearning/midterm/utils/preprocess_data.py}
 
 \subsection{Data Corruption}
+\verb|utils/data_corruption.py|:
 \pythonexternal{C:/Users/evanb/Documents/deeplearning/midterm/utils/data_corruption.py}
 
 \subsection{Model Definitions}
+\verb|utils/Models.py|:
 \pythonexternal{C:/Users/evanb/Documents/deeplearning/midterm/utils/Models.py}
 \end{adjustwidth}
 
 \subsection{Matplotlib configuation}
+\verb|plot_results.py|:
 \pythonexternal{C:/Users/evanb/Documents/deeplearning/midterm/plot_results.py}
 
 \end{document}
