@@ -1,22 +1,26 @@
-import tensorflow.keras as keras
-from tensorflow.keras.datasets import cifar10
-from utils import *
-from math import ceil
-import sys
 import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-m', '--model_num',
-    nargs = '*', default = [1, 2, 3, 4, 5])
+    nargs = '*', default = [1, 2, 3, 4, 5],
+    help = "model number; specify 1, 2, 3, 4, 5, or some list thereof.")
 parser.add_argument('-d', '--data_corruption_types',
     nargs = '*', default = ["true_labels", "random_labels", 
-                   "shuffled_pixels", "random_pixels", "gaussian"])
+                   "shuffled_pixels", "random_pixels", "gaussian"],
+    help = "Data corruption type; select true_labels, random_labels, shuffled_pixels, random_pixels, gaussian or some list thereof.")
 args = parser.parse_args()
 
 BATCH_SIZE = 125
 NUM_SAMPLES = 50000
 NUM_EPOCHS = 100
 STEPS_PER_EPOCH = ceil(NUM_SAMPLES / BATCH_SIZE)
+
+
+import tensorflow.keras as keras
+from tensorflow.keras.datasets import cifar10
+from utils import *
+from math import ceil
+import sys
 
 def get_model(model_code):
     if model_code == 1:
