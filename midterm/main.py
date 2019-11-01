@@ -1,4 +1,5 @@
 import argparse
+from math import ceil
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-m', '--model_num',
@@ -19,7 +20,6 @@ STEPS_PER_EPOCH = ceil(NUM_SAMPLES / BATCH_SIZE)
 import tensorflow.keras as keras
 from tensorflow.keras.datasets import cifar10
 from utils import *
-from math import ceil
 import sys
 
 def get_model(model_code):
