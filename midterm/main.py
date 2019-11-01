@@ -25,29 +25,29 @@ import sys
 def get_model(model_code):
     if model_code == 1:
         return MiniInceptionV3(
-            input_shape = X.shape[1:],
+            input_shape = X_train.shape[1:],
             num_labels = 10
             )
     elif model_code == 2:
         return MiniInceptionV3(
-            input_shape = X.shape[1:],
+            input_shape = X_train.shape[1:],
             num_labels = 10,
             use_batch_norm = False
             )
     elif model_code == 3:
         return AlexNet(
-            input_shape = X.shape[1:],
+            input_shape = X_train.shape[1:],
             num_labels = 10
         )
     elif model_code == 4:
         return MLP(
-            input_shape = X.shape[1:],
+            input_shape = X_train.shape[1:],
             num_labels = 10,
             num_hidden_layers = 1
         )
     elif model_code == 5:
         return MLP(
-            input_shape = X.shape[1:],
+            input_shape = X_train.shape[1:],
             num_labels = 10,
             num_hidden_layers = 3
         )
